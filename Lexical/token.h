@@ -22,4 +22,4 @@ typedef enum{
     TOKEN_SEMICOLON,
     // Error
     TOKEN_ERROR,
-} token_t;
+} Token_t;
