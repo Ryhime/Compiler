@@ -1,3 +1,4 @@
-flex Lexical/scanner.flex
-gcc -o output Lexical/TokenGenerator.c Lexical/lex.yy.c main.c
-./output.exe
+flex Scanner.flex
+bison --defines=Token.h --output=Parser.c Parser.bison
+gcc -o Parser lex.yy.c Parser.c ASTGenerator.c
+./Parser.exe
