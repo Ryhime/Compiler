@@ -12,11 +12,12 @@ int {return TOKEN_INT_KEYWORD;}
 float {return TOKEN_FLOAT_KEYWORD;}
 
 
-
 \+ {return TOKEN_ADD;}
 - {return TOKEN_MINUS;}
 \* {return TOKEN_MUL;}
 \\|\/ {return TOKEN_DIV;}
+
+= {return TOKEN_EQUAL;}
 
 
 

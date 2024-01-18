@@ -3,18 +3,48 @@ typedef enum{
     EXPR_SUB,
     EXPR_DIV,
     EXPR_MUL,
-    EXPR_VAL
+    EXPR_VAL,
+    EXPR_VAR
 } ExpressionType;
+
+typedef struct sym{
+    char* name;
+} Symbol;
 
 typedef struct expr{
     ExpressionType type;
-    struct expr* left;
-    struct expr* right;
+    struct node* left;
+    struct node* right;
     int value;
+    Symbol* variable;
 } Expression;
 
+typedef struct assign{
+    struct node* toAssign;
+    struct node* expr;
+} Assignment;
 
-Expression* createExpression(ExpressionType type,Expression* left,Expression* right);
-Expression* createExpressionValue(int value);
+typedef enum{
+    NODE_ASSIGN,
+    NODE_EXPRESSION
+} NodeType;
 
-void printAST(Expression* root,int depth);
+typedef struct node{
+    NodeType type;
+    struct node* next;
+
+    struct assign* assignment;
+    struct expr* expression;
+} Node;
+
+Node* connectNodes(Node* top,Node* bottom);
+
+
+Node* createExpressionNode(ExpressionType type,Node* left,Node* right);
+Node* createExpressionValueNode(int value);
+Node* createExpressionSymbolNode(char* name);
+
+Node* createAssignmentNode(Node* symbol,Node* expr);
+
+
+void printAST(Node* root,int depth);
