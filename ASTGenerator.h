@@ -25,6 +25,17 @@ typedef struct assign{
 } Assignment;
 
 typedef enum{
+    DECLARE_INT
+} DeclarationType;
+
+
+typedef struct declaration{
+    DeclarationType type;
+    struct node* assignment;
+} Declaration;
+
+typedef enum{
+    NODE_DECLARATION,
     NODE_ASSIGN,
     NODE_EXPRESSION
 } NodeType;
@@ -33,6 +44,7 @@ typedef struct node{
     NodeType type;
     struct node* next;
 
+    struct declaration* declaration;
     struct assign* assignment;
     struct expr* expression;
 } Node;
@@ -45,6 +57,7 @@ Node* createExpressionValueNode(int value);
 Node* createExpressionSymbolNode(char* name);
 
 Node* createAssignmentNode(Node* symbol,Node* expr);
+Node* createDeclarationNode(DeclarationType type,Node* symbol,Node* expr);
 
-
-void printAST(Node* root,int depth);
+void printAST(Node* root);
+void printASTHelper(Node* root, int depth);

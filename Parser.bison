@@ -31,7 +31,12 @@
 %%
 program : line { parserResult = $1; } | line program { parserResult = connectNodes($1,$2);};
 
-line : assignment TOKEN_SEMI { $$ = $1 };
+line : assignment TOKEN_SEMI { $$ = $1 } | 
+       declaration TOKEN_SEMI { $$ = $1 };
+
+declaration : TOKEN_INT_KEYWORD variable { $$ = createDeclarationNode(DECLARE_INT,$2,createExpressionValueNode(0)); } | 
+              TOKEN_INT_KEYWORD variable TOKEN_EQUAL expr { $$ = createDeclarationNode(DECLARE_INT,$2,$4);};
+
 
 assignment : variable TOKEN_EQUAL expr { $$ = createAssignmentNode($1,$3); };
 

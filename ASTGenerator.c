@@ -17,11 +17,7 @@ int main(){
         printf("Failed to parse\n");
         return -1;
     } 
-    printAST(parserResult,0);
-    printf("=======================\n");
-    printAST(parserResult->next,0);
-    printf("=======================\n");
-    printAST(parserResult->next->next,0);
+    printAST(parserResult);
     return 0;
 }
 
@@ -66,30 +62,60 @@ Node* createAssignmentNode(Node* symb,Node* expr){
 
     Node* node = calloc(sizeof(Node),1);
     node->type = NODE_ASSIGN;
-    // FOR NOWWWWWWWWWW!!!!!!!!!!!!!!!!!
-    node->next = NULL;
     node->assignment = toCreate;
-    node->expression = NULL;
+    return node;
+}
+
+Node* createDeclarationNode(DeclarationType type,Node* symbol,Node* expr){
+    Declaration* declare = calloc(sizeof(Declaration),1);
+    declare->type = type;
+    
+    Assignment* assign = calloc(sizeof(Assignment),1);
+    assign->toAssign = symbol;
+    assign->expr = expr;
+
+    Node* assignmentNode = calloc(sizeof(Node),1);
+    assignmentNode->type = NODE_ASSIGN;
+    assignmentNode->assignment = assign;
+
+    declare->assignment = assignmentNode;
+
+    Node* node = calloc(sizeof(Node),1);
+    node->type = NODE_DECLARATION;
+    node->declaration = declare;
+
     return node;
 }
 
 
+void printAST(Node* root){
+    while (root!=NULL){
+        printf("====================\n");
+        printASTHelper(root,0);
+        root = root->next;
+    }
+    printf("====================\n");
+}
 
-void printAST(Node* root,int depth){
+void printASTHelper(Node* root,int depth){
     for (int i=0;i<depth;i++){
         printf("-");
     }
     // Print node
     if (root->type==NODE_ASSIGN){
         printf("ASSIGNMENT\n");
-        printAST(root->assignment->toAssign,depth+1);
-        printAST(root->assignment->expr,depth+1);
+        printASTHelper(root->assignment->toAssign,depth+1);
+        printASTHelper(root->assignment->expr,depth+1);
     }
     else if (root->type==NODE_EXPRESSION){
         if (root->expression->type==EXPR_VAL) printf("%d\n",root->expression->value);
         else if (root->expression->type==EXPR_VAR) printf("%s\n",root->expression->variable->name);
-        if (root->expression->left!=NULL) printAST(root->expression->left,depth+1);
-        if (root->expression->right!=NULL) printAST(root->expression->right,depth+1);
+        if (root->expression->left!=NULL) printASTHelper(root->expression->left,depth+1);
+        if (root->expression->right!=NULL) printASTHelper(root->expression->right,depth+1);
+    }
+    else if (root->type==NODE_DECLARATION){
+        printf("DECLARATION\n");
+        printASTHelper(root->declaration->assignment,depth+1);
     }
 }
 
