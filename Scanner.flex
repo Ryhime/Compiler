@@ -4,7 +4,9 @@
 DIGIT [0-9]
 LETTER [a-zA-Z]
 %%
-(" "|\t|\n)
+(" "|\t|\n|\/\/.*(\n)*)
+
+(\/\*(.*(\n)*)*\*\/)
 if {return TOKEN_IF;}
 while {return TOKEN_WHILE;}
 for {return TOKEN_FOR;}
