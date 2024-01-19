@@ -40,22 +40,25 @@
       know about them.  */
    enum yytokentype {
      TOKEN_INT = 258,
-     TOKEN_ADD = 259,
-     TOKEN_MINUS = 260,
-     TOKEN_MUL = 261,
-     TOKEN_DIV = 262,
-     TOKEN_EQUAL = 263,
-     TOKEN_LPAREN = 264,
-     TOKEN_RPAREN = 265,
-     TOKEN_SEMI = 266,
-     TOKEN_ERROR = 267,
-     TOKEN_EOF = 268,
-     TOKEN_IF = 269,
-     TOKEN_WHILE = 270,
-     TOKEN_FOR = 271,
-     TOKEN_INT_KEYWORD = 272,
-     TOKEN_FLOAT_KEYWORD = 273,
-     TOKEN_IDENT = 274
+     TOKEN_FLOAT = 259,
+     TOKEN_CHAR = 260,
+     TOKEN_ADD = 261,
+     TOKEN_MINUS = 262,
+     TOKEN_MUL = 263,
+     TOKEN_DIV = 264,
+     TOKEN_EQUAL = 265,
+     TOKEN_LPAREN = 266,
+     TOKEN_RPAREN = 267,
+     TOKEN_SEMI = 268,
+     TOKEN_ERROR = 269,
+     TOKEN_EOF = 270,
+     TOKEN_IF = 271,
+     TOKEN_WHILE = 272,
+     TOKEN_FOR = 273,
+     TOKEN_INT_KEYWORD = 274,
+     TOKEN_FLOAT_KEYWORD = 275,
+     TOKEN_CHAR_KEYWORD = 276,
+     TOKEN_IDENT = 277
    };
 #endif
 

@@ -3,7 +3,9 @@ typedef enum{
     EXPR_SUB,
     EXPR_DIV,
     EXPR_MUL,
-    EXPR_VAL,
+    EXPR_INT,
+    EXPR_FLOAT,
+    EXPR_CHAR,
     EXPR_VAR
 } ExpressionType;
 
@@ -15,7 +17,9 @@ typedef struct expr{
     ExpressionType type;
     struct node* left;
     struct node* right;
-    int value;
+    int integer;
+    float floating;
+    char character;
     Symbol* variable;
 } Expression;
 
@@ -25,7 +29,9 @@ typedef struct assign{
 } Assignment;
 
 typedef enum{
-    DECLARE_INT
+    DECLARE_INT,
+    DECLARE_FLOAT,
+    DECLARE_CHAR
 } DeclarationType;
 
 
@@ -53,7 +59,9 @@ Node* connectNodes(Node* top,Node* bottom);
 
 
 Node* createExpressionNode(ExpressionType type,Node* left,Node* right);
-Node* createExpressionValueNode(int value);
+Node* createExpressionIntNode(int value);
+Node* createExpressionFloatNode(float value);
+Node* createExpressionCharNode(char value);
 Node* createExpressionSymbolNode(char* name);
 
 Node* createAssignmentNode(Node* symbol,Node* expr);
