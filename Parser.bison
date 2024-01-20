@@ -29,6 +29,9 @@
 %token TOKEN_INT_KEYWORD
 %token TOKEN_FLOAT_KEYWORD
 %token TOKEN_CHAR_KEYWORD
+%token TOKEN_BOOL_KEYWORD
+%token TOKEN_TRUE_KEYWORD
+%token TOKEN_FALSE_KEYWORD
 %token TOKEN_IDENT
 
 %%
@@ -43,6 +46,8 @@ declaration : TOKEN_INT_KEYWORD variable { $$ = createDeclarationNode(DECLARE_IN
               | TOKEN_FLOAT_KEYWORD variable TOKEN_EQUAL expr { $$ = createDeclarationNode(DECLARE_FLOAT,$2,$4); }
               | TOKEN_CHAR_KEYWORD variable { $$ = createDeclarationNode(DECLARE_CHAR,$2,createExpressionCharNode('a')); }
               | TOKEN_CHAR_KEYWORD variable TOKEN_EQUAL expr { $$ = createDeclarationNode(DECLARE_CHAR,$2,$4); }
+              | TOKEN_BOOL_KEYWORD variable { $$ = createDeclarationNode(DECLARE_BOOL,$2,createExpressionBoolNode(0)); }
+              | TOKEN_BOOL_KEYWORD variable TOKEN_EQUAL expr { $$ = createDeclarationNode(DECLARE_BOOL,$2,$4); };
 
 
 
@@ -65,6 +70,8 @@ factor : TOKEN_MINUS factor { $$ = createExpressionNode(EXPR_SUB,createExpressio
        | TOKEN_INT { $$ = createExpressionIntNode(atoi(yytext)); }
        | TOKEN_FLOAT { $$ = createExpressionFloatNode(atof(yytext)); }
        | TOKEN_CHAR { $$ = createExpressionCharNode(yytext[1]); }
+       | TOKEN_FALSE_KEYWORD { $$ = createExpressionBoolNode(0); }
+       | TOKEN_TRUE_KEYWORD { $$ = createExpressionBoolNode(1); }
        | TOKEN_IDENT { $$ = createExpressionSymbolNode(yytext); }
        ;
 

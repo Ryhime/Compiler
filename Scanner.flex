@@ -13,6 +13,9 @@ for {return TOKEN_FOR;}
 int {return TOKEN_INT_KEYWORD;}
 float {return TOKEN_FLOAT_KEYWORD;}
 char {return TOKEN_CHAR_KEYWORD;}
+bool {return TOKEN_BOOL_KEYWORD;}
+true {return TOKEN_TRUE_KEYWORD;}
+false {return TOKEN_FALSE_KEYWORD;}
 
 
 \+ {return TOKEN_ADD;}

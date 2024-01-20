@@ -6,6 +6,7 @@ typedef enum{
     EXPR_INT,
     EXPR_FLOAT,
     EXPR_CHAR,
+    EXPR_BOOL,
     EXPR_VAR
 } ExpressionType;
 
@@ -20,6 +21,7 @@ typedef struct expr{
     int integer;
     float floating;
     char character;
+    int boolean;
     Symbol* variable;
 } Expression;
 
@@ -31,7 +33,8 @@ typedef struct assign{
 typedef enum{
     DECLARE_INT,
     DECLARE_FLOAT,
-    DECLARE_CHAR
+    DECLARE_CHAR,
+    DECLARE_BOOL
 } DeclarationType;
 
 
@@ -62,6 +65,7 @@ Node* createExpressionNode(ExpressionType type,Node* left,Node* right);
 Node* createExpressionIntNode(int value);
 Node* createExpressionFloatNode(float value);
 Node* createExpressionCharNode(char value);
+Node* createExpressionBoolNode(int value);
 Node* createExpressionSymbolNode(char* name);
 
 Node* createAssignmentNode(Node* symbol,Node* expr);

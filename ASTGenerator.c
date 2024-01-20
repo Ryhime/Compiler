@@ -57,6 +57,12 @@ Node* createExpressionCharNode(char value){
     return toCreate;
 } 
 
+Node* createExpressionBoolNode(int value){
+    Node* toCreate = createExpressionNode(EXPR_BOOL,NULL,NULL);
+    toCreate->expression->boolean = value;
+    return toCreate;
+}
+
 Node* createExpressionSymbolNode(char* name){
     Node* toCreate = createExpressionNode(EXPR_VAR,NULL,NULL);
     Symbol* symb = calloc(sizeof(Symbol),1);
@@ -123,7 +129,9 @@ void printASTHelper(Node* root,int depth){
         if (root->expression->type==EXPR_INT) printf("%d\n",root->expression->integer);
         else if (root->expression->type==EXPR_FLOAT) printf("%.6f\n",root->expression->floating);
         else if (root->expression->type==EXPR_CHAR) printf("%c\n",root->expression->character);
+        else if (root->expression->type==EXPR_BOOL) printf("%d\n",root->expression->boolean);
         else if (root->expression->type==EXPR_VAR) printf("%s\n",root->expression->variable->name);
+
         if (root->expression->left!=NULL) printASTHelper(root->expression->left,depth+1);
         if (root->expression->right!=NULL) printASTHelper(root->expression->right,depth+1);
     }
