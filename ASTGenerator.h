@@ -7,7 +7,17 @@ typedef enum{
     EXPR_FLOAT,
     EXPR_CHAR,
     EXPR_BOOL,
-    EXPR_VAR
+    EXPR_VAR,
+
+    EXPR_EQUAL,
+    EXPR_LESS,
+    EXPR_GREATER,
+    EXPR_LESS_EQUAL,
+    EXPR_GREATER_EQUAL,
+    EXPR_NOT,
+    EXPR_AND,
+    EXPR_OR,
+    EXPR_XOR
 } ExpressionType;
 
 typedef struct sym{

@@ -17,6 +17,17 @@
 %token TOKEN_MUL
 %token TOKEN_DIV
 %token TOKEN_EQUAL
+%token TOKEN_DOUBLE_EQUAL
+%token TOKEN_LESS
+%token TOKEN_GREATER
+%token TOKEN_LESS_EQUAL
+%token TOKEN_GREATER_EQUAL
+
+%token TOKEN_OR
+%token TOKEN_AND
+%token TOKEN_XOR
+%token TOKEN_NOT
+
 %token TOKEN_LPAREN
 %token TOKEN_RPAREN
 %token TOKEN_SEMI
@@ -57,11 +68,20 @@ variable : TOKEN_IDENT { $$ = createExpressionSymbolNode(yytext); }
 
 expr : expr TOKEN_ADD term { $$ = createExpressionNode(EXPR_ADD,$1,$3); }
      | expr TOKEN_MINUS term { $$ = createExpressionNode(EXPR_SUB,$1,$3); }
+     | TOKEN_NOT term { $$ = createExpressionNode(EXPR_NOT,$2,NULL); }
+     | expr TOKEN_AND term { $$ = createExpressionNode(EXPR_AND,$1,$3); }
+     | expr TOKEN_OR term { $$ = createExpressionNode(EXPR_OR,$1,$3); };
+     | expr TOKEN_XOR term { $$ = createExpressionNode(EXPR_XOR,$1,$3); }
      | term{ $$ = $1; }
      ;
 
 term : term TOKEN_MUL factor { $$ = createExpressionNode(EXPR_MUL,$1,$3); }
      | term TOKEN_DIV factor { $$ = createExpressionNode(EXPR_DIV,$1,$3); }
+     | term TOKEN_DOUBLE_EQUAL factor { $$ = createExpressionNode(EXPR_EQUAL,$1,$3); }
+     | term TOKEN_LESS factor { $$ = createExpressionNode(EXPR_LESS,$1,$3); }
+     | term TOKEN_GREATER factor { $$ = createExpressionNode(EXPR_GREATER,$1,$3); }
+     | term TOKEN_LESS_EQUAL factor { $$ = createExpressionNode(EXPR_LESS_EQUAL,$1,$3); };
+     | term TOKEN_GREATER_EQUAL factor { $$ = createExpressionNode(EXPR_GREATER_EQUAL,$1,$3); }
      | factor { $$ = $1; }
      ;
 

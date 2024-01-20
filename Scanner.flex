@@ -18,6 +18,16 @@ true {return TOKEN_TRUE_KEYWORD;}
 false {return TOKEN_FALSE_KEYWORD;}
 
 
+== {return TOKEN_DOUBLE_EQUAL;}
+\< {return TOKEN_LESS;}
+\> {return TOKEN_GREATER;}
+\<= {return TOKEN_LESS_EQUAL;}
+\>= {return TOKEN_GREATER_EQUAL;}
+! {return TOKEN_NOT;}
+and {return TOKEN_AND;}
+or {return TOKEN_OR;}
+xor {return TOKEN_XOR;}
+
 \+ {return TOKEN_ADD;}
 - {return TOKEN_MINUS;}
 \* {return TOKEN_MUL;}

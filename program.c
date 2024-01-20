@@ -3,9 +3,9 @@ float b;
 char c;
 a = true;
 bool a;
-bool a = true;
+bool a = !true;
 
-int d = 5;
+int d = !(5+6)>5;
 char jfkdla = 'c';
 
 // Hello i am comment
