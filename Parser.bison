@@ -30,13 +30,15 @@
 
 %token TOKEN_LPAREN
 %token TOKEN_RPAREN
+%token TOKEN_LCURL
+%token TOKEN_RCURL
 %token TOKEN_SEMI
 %token TOKEN_ERROR
 %token TOKEN_EOF
 
-%token TOKEN_IF
-%token TOKEN_WHILE
-%token TOKEN_FOR
+%token TOKEN_IF_KEYWORD
+%token TOKEN_WHILE_KEYWORD
+%token TOKEN_FOR_KEYWORD
 %token TOKEN_INT_KEYWORD
 %token TOKEN_FLOAT_KEYWORD
 %token TOKEN_CHAR_KEYWORD
@@ -46,10 +48,12 @@
 %token TOKEN_IDENT
 
 %%
-program : line { parserResult = $1; } | line program { parserResult = connectNodes($1,$2);};
+program : lines { parserResult = $1; }
+lines : line { $$ = $1; } | line lines { parserResult = connectNodes($1,$2);};
 
 line : assignment TOKEN_SEMI { $$ = $1 } | 
-       declaration TOKEN_SEMI { $$ = $1 };
+       declaration TOKEN_SEMI { $$ = $1 } |
+       while;
 
 declaration : TOKEN_INT_KEYWORD variable { $$ = createDeclarationNode(DECLARE_INT,$2,createExpressionIntNode(0)); } 
               | TOKEN_INT_KEYWORD variable TOKEN_EQUAL expr { $$ = createDeclarationNode(DECLARE_INT,$2,$4);};
@@ -60,15 +64,16 @@ declaration : TOKEN_INT_KEYWORD variable { $$ = createDeclarationNode(DECLARE_IN
               | TOKEN_BOOL_KEYWORD variable { $$ = createDeclarationNode(DECLARE_BOOL,$2,createExpressionBoolNode(0)); }
               | TOKEN_BOOL_KEYWORD variable TOKEN_EQUAL expr { $$ = createDeclarationNode(DECLARE_BOOL,$2,$4); };
 
-
-
 assignment : variable TOKEN_EQUAL expr { $$ = createAssignmentNode($1,$3); };
+
+while : TOKEN_WHILE_KEYWORD TOKEN_LPAREN expr TOKEN_RPAREN TOKEN_LCURL lines TOKEN_RCURL 
+       | TOKEN_WHILE_KEYWORD TOKEN_LPAREN expr TOKEN_RPAREN TOKEN_LCURL TOKEN_RCURL;
 
 variable : TOKEN_IDENT { $$ = createExpressionSymbolNode(yytext); }
 
 expr : expr TOKEN_ADD term { $$ = createExpressionNode(EXPR_ADD,$1,$3); }
      | expr TOKEN_MINUS term { $$ = createExpressionNode(EXPR_SUB,$1,$3); }
-     | TOKEN_NOT term { $$ = createExpressionNode(EXPR_NOT,$2,NULL); }
+     | TOKEN_NOT expr { $$ = createExpressionNode(EXPR_NOT,$2,NULL); }
      | expr TOKEN_AND term { $$ = createExpressionNode(EXPR_AND,$1,$3); }
      | expr TOKEN_OR term { $$ = createExpressionNode(EXPR_OR,$1,$3); };
      | expr TOKEN_XOR term { $$ = createExpressionNode(EXPR_XOR,$1,$3); }

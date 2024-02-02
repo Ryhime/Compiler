@@ -7,9 +7,9 @@ LETTER [a-zA-Z]
 (" "|\t|\n|\/\/.*(\n)*)
 
 (\/\*(.*(\n)*)*\*\/)
-if {return TOKEN_IF;}
-while {return TOKEN_WHILE;}
-for {return TOKEN_FOR;}
+if {return TOKEN_IF_KEYWORD;}
+while {return TOKEN_WHILE_KEYWORD;}
+for {return TOKEN_FOR_KEYWORD;}
 int {return TOKEN_INT_KEYWORD;}
 float {return TOKEN_FLOAT_KEYWORD;}
 char {return TOKEN_CHAR_KEYWORD;}
@@ -44,6 +44,8 @@ xor {return TOKEN_XOR;}
 \'.\' {return TOKEN_CHAR;}
 \( {return TOKEN_LPAREN;}
 \) {return TOKEN_RPAREN;}
+\{ {return TOKEN_LCURL;}
+\} {return TOKEN_RCURL;}
 ; {return TOKEN_SEMI;}
 
 

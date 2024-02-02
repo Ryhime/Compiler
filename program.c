@@ -12,3 +12,9 @@ char jfkdla = 'c';
 /*
 
 */
+while (!(a<5)){
+    bool a = !true;
+
+    int d = !(5+6)>5;
+    char jfkdla = 'c';
+}
