@@ -127,8 +127,8 @@ factor : TOKEN_MINUS factor { $$ = createExpressionNode(EXPR_SUB,createExpressio
 %%
 
 
-
 int yyerror(char* s){
+    // This is where you can throw a syntax error
     return 0;
 }
 int yywrap() {return 1;}
