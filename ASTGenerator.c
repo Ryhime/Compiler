@@ -7,8 +7,6 @@ extern FILE *yyin;
 extern int yyparse();
 extern Node* parserResult;
 
-
-
 int main(){
     yyin = fopen("program.c","r");
     int validateResult = yyparse();
@@ -33,8 +31,6 @@ Node* createExpressionNode(ExpressionType type,Node* left,Node* right){
 
     Node* toReturn = calloc(sizeof(Node),1);
     toReturn->type = NODE_EXPRESSION;
-    toReturn->next = NULL;
-    toReturn->assignment = NULL;
     toReturn->expression = toCreate;
     return toReturn;
 }
@@ -72,7 +68,6 @@ Node* createExpressionSymbolNode(char* name){
     return toCreate;
 }
 
-
 Node* createAssignmentNode(Node* symb,Node* expr){
     Assignment* toCreate = calloc(sizeof(Assignment),1);
     toCreate->toAssign = symb;
@@ -88,13 +83,7 @@ Node* createDeclarationNode(DeclarationType type,Node* symbol,Node* expr){
     Declaration* declare = calloc(sizeof(Declaration),1);
     declare->type = type;
     
-    Assignment* assign = calloc(sizeof(Assignment),1);
-    assign->toAssign = symbol;
-    assign->expr = expr;
-
-    Node* assignmentNode = calloc(sizeof(Node),1);
-    assignmentNode->type = NODE_ASSIGN;
-    assignmentNode->assignment = assign;
+    Node* assignmentNode = createAssignmentNode(symbol,expr);
 
     declare->assignment = assignmentNode;
 
@@ -105,6 +94,45 @@ Node* createDeclarationNode(DeclarationType type,Node* symbol,Node* expr){
     return node;
 }
 
+Node* createWhileLoopNode(Node* expression, Node* insideLines){
+    WhileLoop* whileLoop = calloc(sizeof(WhileLoop),1);
+    whileLoop->conditionExpression = expression;
+    whileLoop->insideLines = insideLines;
+
+    Node* toReturnNode = calloc(sizeof(Node),1);
+    toReturnNode->whileLoop = whileLoop;
+    toReturnNode->type = NODE_WHILELOOP;
+
+    return toReturnNode;
+}
+
+Node* createForLoopNode(Node* initExpr, Node* conditionExpr, Node* iterExpr, Node* insideLines){
+    ForLoop* forLoop = calloc(sizeof(ForLoop),1);
+    forLoop->initExpr = initExpr;
+    forLoop->conditionExpr = conditionExpr;
+    forLoop->iterationExpr = iterExpr;
+    forLoop->insideLines = insideLines;
+
+    Node* toReturnNode = calloc(sizeof(Node),1);
+    toReturnNode->forLoop = forLoop;
+    toReturnNode->type = NODE_FORLOOP;
+
+    return toReturnNode;
+}
+
+Node* createIfStatementNode(Node* expr, Node* insideLines, Node* falseCondition, int isElse){
+    IfStatement* ifStatement = calloc(sizeof(IfStatement),1);
+    ifStatement->isElse = isElse;
+    ifStatement->condition = expr;
+    ifStatement->insideLines = insideLines;
+    ifStatement->falseCondition = falseCondition;
+
+    Node* toReturnNode = calloc(sizeof(Node),1);
+    toReturnNode ->ifStatement = ifStatement;
+    toReturnNode->type = NODE_IFSTATEMENT;
+
+    return toReturnNode;
+}
 
 void printAST(Node* root){
     while (root!=NULL){
@@ -138,6 +166,28 @@ void printASTHelper(Node* root,int depth){
     else if (root->type==NODE_DECLARATION){
         printf("DECLARATION\n");
         printASTHelper(root->declaration->assignment,depth+1);
+    }
+    else if (root->type==NODE_WHILELOOP){
+        printf("Starting While Loop!\n");
+        printAST(root->whileLoop->insideLines);
+        printf("Finished While Loop!\n");
+    }
+    else if (root->type==NODE_FORLOOP){
+        printf("Starting For Loop!\n");
+        printAST(root->forLoop->insideLines);
+        printf("Finished For Loop!\n");
+    }
+    else if (root->type==NODE_IFSTATEMENT){
+        if (!root->ifStatement->isElse) printf("Starting If Statement!\n");
+        else printf("Starting Else Statement!\n");
+
+        printAST(root->ifStatement->insideLines);
+        if (root->ifStatement->falseCondition!=NULL){
+            printASTHelper(root->ifStatement->falseCondition,depth+1);
+        }
+
+        if (!root->ifStatement->isElse) printf("Finished If Statement!\n");
+        else printf("Finished Else Statement!\n");
     }
 }
 

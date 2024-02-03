@@ -8,6 +8,7 @@ LETTER [a-zA-Z]
 
 (\/\*(.*(\n)*)*\*\/)
 if {return TOKEN_IF_KEYWORD;}
+else {return TOKEN_ELSE_KEYWORD;}
 while {return TOKEN_WHILE_KEYWORD;}
 for {return TOKEN_FOR_KEYWORD;}
 int {return TOKEN_INT_KEYWORD;}
@@ -19,6 +20,12 @@ false {return TOKEN_FALSE_KEYWORD;}
 
 
 == {return TOKEN_DOUBLE_EQUAL;}
+\*= {return TOKEN_MUL_EQUAL;}
+\+= {return TOKEN_ADD_EQUAL;}
+-= {return TOKEN_SUB_EQUAL;}
+(\/=)|(\\=) {return TOKEN_DIV_EQUAL;}
+
+
 \< {return TOKEN_LESS;}
 \> {return TOKEN_GREATER;}
 \<= {return TOKEN_LESS_EQUAL;}

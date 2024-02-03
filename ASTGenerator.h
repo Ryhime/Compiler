@@ -53,19 +53,47 @@ typedef struct declaration{
     struct node* assignment;
 } Declaration;
 
+typedef struct whileLoop{
+    struct node* conditionExpression;
+    struct node* insideLines;
+} WhileLoop;
+
+typedef struct forLoop{
+    struct node* initExpr;
+    struct node* conditionExpr;
+    struct node* iterationExpr;
+
+    struct node* insideLines;
+} ForLoop;
+
+typedef struct ifStatement{
+    struct node* condition;
+    struct node* insideLines;
+    struct node* falseCondition;
+    int isElse;
+} IfStatement;
+
 typedef enum{
     NODE_DECLARATION,
     NODE_ASSIGN,
-    NODE_EXPRESSION
+    NODE_EXPRESSION,
+    NODE_WHILELOOP,
+    NODE_FORLOOP,
+    NODE_IFSTATEMENT
 } NodeType;
+
 
 typedef struct node{
     NodeType type;
     struct node* next;
 
+    // Could use a union do in future
     struct declaration* declaration;
     struct assign* assignment;
     struct expr* expression;
+    struct whileLoop* whileLoop;
+    struct forLoop* forLoop;
+    struct ifStatement* ifStatement;
 } Node;
 
 Node* connectNodes(Node* top,Node* bottom);
@@ -80,6 +108,12 @@ Node* createExpressionSymbolNode(char* name);
 
 Node* createAssignmentNode(Node* symbol,Node* expr);
 Node* createDeclarationNode(DeclarationType type,Node* symbol,Node* expr);
+
+Node* createWhileLoopNode(Node* expression, Node* insideLines);
+
+Node* createForLoopNode(Node* initExpr, Node* conditionExpr, Node* iterExpr, Node* insideLines);
+
+Node* createIfStatementNode(Node* expr, Node* insideLines, Node* falseCondition, int isElse);
 
 void printAST(Node* root);
 void printASTHelper(Node* root, int depth);

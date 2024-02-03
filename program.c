@@ -1,20 +1,15 @@
-int a;
-float b;
-char c;
-a = true;
-bool a;
-bool a = !true;
+if (a==5){
+    b = 2;
 
-int d = !(5+6)>5;
-char jfkdla = 'c';
-
-// Hello i am comment
-/*
-
-*/
-while (!(a<5)){
-    bool a = !true;
-
-    int d = !(5+6)>5;
-    char jfkdla = 'c';
 }
+else if (a==6){
+    a = 5;
+}
+else{
+    b = 6;
+}
+
+b+=1;
+b*=1;
+b/=1;
+b-=1;

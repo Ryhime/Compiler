@@ -23,6 +23,11 @@
 %token TOKEN_LESS_EQUAL
 %token TOKEN_GREATER_EQUAL
 
+%token TOKEN_ADD_EQUAL
+%token TOKEN_SUB_EQUAL
+%token TOKEN_MUL_EQUAL
+%token TOKEN_DIV_EQUAL
+
 %token TOKEN_OR
 %token TOKEN_AND
 %token TOKEN_XOR
@@ -37,6 +42,7 @@
 %token TOKEN_EOF
 
 %token TOKEN_IF_KEYWORD
+%token TOKEN_ELSE_KEYWORD
 %token TOKEN_WHILE_KEYWORD
 %token TOKEN_FOR_KEYWORD
 %token TOKEN_INT_KEYWORD
@@ -48,12 +54,14 @@
 %token TOKEN_IDENT
 
 %%
-program : lines { parserResult = $1; }
-lines : line { $$ = $1; } | line lines { parserResult = connectNodes($1,$2);};
+program : lines { parserResult = $1 }
+lines : line { $$ = $1; } | line lines { $$ = connectNodes($1,$2); };
 
 line : assignment TOKEN_SEMI { $$ = $1 } | 
        declaration TOKEN_SEMI { $$ = $1 } |
-       while;
+       while { $$ = $1 } |
+       for { $$ = $1; } |
+       if { $$ = $1; };
 
 declaration : TOKEN_INT_KEYWORD variable { $$ = createDeclarationNode(DECLARE_INT,$2,createExpressionIntNode(0)); } 
               | TOKEN_INT_KEYWORD variable TOKEN_EQUAL expr { $$ = createDeclarationNode(DECLARE_INT,$2,$4);};
@@ -64,10 +72,28 @@ declaration : TOKEN_INT_KEYWORD variable { $$ = createDeclarationNode(DECLARE_IN
               | TOKEN_BOOL_KEYWORD variable { $$ = createDeclarationNode(DECLARE_BOOL,$2,createExpressionBoolNode(0)); }
               | TOKEN_BOOL_KEYWORD variable TOKEN_EQUAL expr { $$ = createDeclarationNode(DECLARE_BOOL,$2,$4); };
 
-assignment : variable TOKEN_EQUAL expr { $$ = createAssignmentNode($1,$3); };
+assignment : variable TOKEN_EQUAL expr { $$ = createAssignmentNode($1,$3); }
+       | variable TOKEN_ADD_EQUAL expr { $$ = createAssignmentNode($1,createExpressionNode(EXPR_ADD,$1,$3)); }
+       | variable TOKEN_SUB_EQUAL expr { $$ = createAssignmentNode($1,createExpressionNode(EXPR_SUB,$1,$3)); }
+       | variable TOKEN_MUL_EQUAL expr { $$ = createAssignmentNode($1,createExpressionNode(EXPR_MUL,$1,$3)); }
+       | variable TOKEN_DIV_EQUAL expr { $$ = createAssignmentNode($1,createExpressionNode(EXPR_DIV,$1,$3)); }
 
-while : TOKEN_WHILE_KEYWORD TOKEN_LPAREN expr TOKEN_RPAREN TOKEN_LCURL lines TOKEN_RCURL 
+while : TOKEN_WHILE_KEYWORD TOKEN_LPAREN expr TOKEN_RPAREN TOKEN_LCURL lines TOKEN_RCURL { $$ = createWhileLoopNode($3,$6); }
        | TOKEN_WHILE_KEYWORD TOKEN_LPAREN expr TOKEN_RPAREN TOKEN_LCURL TOKEN_RCURL;
+
+for : TOKEN_FOR_KEYWORD TOKEN_LPAREN declaration TOKEN_SEMI expr TOKEN_SEMI assignment TOKEN_RPAREN TOKEN_LCURL lines TOKEN_RCURL { $$ = createForLoopNode($3,$5,$7,$10); }
+
+if : TOKEN_IF_KEYWORD TOKEN_LPAREN expr TOKEN_RPAREN TOKEN_LCURL lines TOKEN_RCURL { $$ = createIfStatementNode($3,$6,NULL,0); }
+       | TOKEN_IF_KEYWORD TOKEN_LPAREN expr TOKEN_RPAREN TOKEN_LCURL lines TOKEN_RCURL elseif { $$ = createIfStatementNode($3,$6,$8,0); };
+       | TOKEN_IF_KEYWORD TOKEN_LPAREN expr TOKEN_RPAREN TOKEN_LCURL lines TOKEN_RCURL else { $$ = createIfStatementNode($3,$6,$8,0); };
+
+
+elseif : TOKEN_ELSE_KEYWORD TOKEN_IF_KEYWORD TOKEN_LPAREN expr TOKEN_RPAREN TOKEN_LCURL lines TOKEN_RCURL { $$ = createIfStatementNode($4,$7,NULL,0); }
+       | TOKEN_ELSE_KEYWORD TOKEN_IF_KEYWORD TOKEN_LPAREN expr TOKEN_RPAREN TOKEN_LCURL lines TOKEN_RCURL elseif { $$ = createIfStatementNode($4,$7,$9,0); }
+       | TOKEN_ELSE_KEYWORD TOKEN_IF_KEYWORD TOKEN_LPAREN expr TOKEN_RPAREN TOKEN_LCURL lines TOKEN_RCURL else { $$ = createIfStatementNode($4,$7,$9,0); };
+
+
+else : TOKEN_ELSE_KEYWORD TOKEN_LCURL lines TOKEN_RCURL { $$ = createIfStatementNode(NULL,$3,NULL,1); };
 
 variable : TOKEN_IDENT { $$ = createExpressionSymbolNode(yytext); }
 
@@ -75,9 +101,9 @@ expr : expr TOKEN_ADD term { $$ = createExpressionNode(EXPR_ADD,$1,$3); }
      | expr TOKEN_MINUS term { $$ = createExpressionNode(EXPR_SUB,$1,$3); }
      | TOKEN_NOT expr { $$ = createExpressionNode(EXPR_NOT,$2,NULL); }
      | expr TOKEN_AND term { $$ = createExpressionNode(EXPR_AND,$1,$3); }
-     | expr TOKEN_OR term { $$ = createExpressionNode(EXPR_OR,$1,$3); };
+     | expr TOKEN_OR term { $$ = createExpressionNode(EXPR_OR,$1,$3); }
      | expr TOKEN_XOR term { $$ = createExpressionNode(EXPR_XOR,$1,$3); }
-     | term{ $$ = $1; }
+     | term { $$ = $1; }
      ;
 
 term : term TOKEN_MUL factor { $$ = createExpressionNode(EXPR_MUL,$1,$3); }
@@ -85,10 +111,9 @@ term : term TOKEN_MUL factor { $$ = createExpressionNode(EXPR_MUL,$1,$3); }
      | term TOKEN_DOUBLE_EQUAL factor { $$ = createExpressionNode(EXPR_EQUAL,$1,$3); }
      | term TOKEN_LESS factor { $$ = createExpressionNode(EXPR_LESS,$1,$3); }
      | term TOKEN_GREATER factor { $$ = createExpressionNode(EXPR_GREATER,$1,$3); }
-     | term TOKEN_LESS_EQUAL factor { $$ = createExpressionNode(EXPR_LESS_EQUAL,$1,$3); };
+     | term TOKEN_LESS_EQUAL factor { $$ = createExpressionNode(EXPR_LESS_EQUAL,$1,$3); }
      | term TOKEN_GREATER_EQUAL factor { $$ = createExpressionNode(EXPR_GREATER_EQUAL,$1,$3); }
-     | factor { $$ = $1; }
-     ;
+     | factor { $$ = $1; };
 
 factor : TOKEN_MINUS factor { $$ = createExpressionNode(EXPR_SUB,createExpressionIntNode(0),$2); }
        | TOKEN_LPAREN expr TOKEN_RPAREN { $$ = $2; }
@@ -97,8 +122,7 @@ factor : TOKEN_MINUS factor { $$ = createExpressionNode(EXPR_SUB,createExpressio
        | TOKEN_CHAR { $$ = createExpressionCharNode(yytext[1]); }
        | TOKEN_FALSE_KEYWORD { $$ = createExpressionBoolNode(0); }
        | TOKEN_TRUE_KEYWORD { $$ = createExpressionBoolNode(1); }
-       | TOKEN_IDENT { $$ = createExpressionSymbolNode(yytext); }
-       ;
+       | TOKEN_IDENT { $$ = createExpressionSymbolNode(yytext); };
 
 %%
 
