@@ -1,21 +1,35 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "ASTGenerator.h"
+#include "SymbolTable.h"
+#include "ErrorHandler.h"
 
 extern FILE *yyin;
 extern int yyparse();
+
 extern Node* parserResult;
+SymbolTable* currSymbolTable;
+ErrorTable* errorTable;
+
 
 int main(){
     yyin = fopen("program.c","r");
+    currSymbolTable = createSymbolTable();
+    errorTable = createErrorTable();
+
+
     int validateResult = yyparse();
     if (validateResult==0) printf("Parse Completed!\n");
     else{
         printf("Failed to parse\n");
         return -1;
-    } 
-    printAST(parserResult);
+    }
+    if (errorTable->head!=NULL){
+        printErrorTable(errorTable);
+    }
+    else{
+        printAST(parserResult);
+    }
     return 0;
 }
 
@@ -59,12 +73,18 @@ Node* createExpressionBoolNode(int value){
     return toCreate;
 }
 
-Node* createExpressionSymbolNode(char* name){
+Node* createExpressionSymbolNode(char* name, int isDeclaring){
     Node* toCreate = createExpressionNode(EXPR_VAR,NULL,NULL);
     Symbol* symb = calloc(sizeof(Symbol),1);
     symb->name = calloc(strlen(name),1);
     strcpy(symb->name,name);
     toCreate->expression->variable = symb;
+
+    // Symbol Table Lookup
+    // NOTE: NEEDS TO BE UPDATED TO GO UP TO THE ROOT
+    if (!isDeclaring && getSymbolFromTable(currSymbolTable,symb)==NULL){
+        addErrorEntryToTable(errorTable,ERROR_VAR_DNE,symb->name);
+    }
     return toCreate;
 }
 
@@ -90,6 +110,15 @@ Node* createDeclarationNode(DeclarationType type,Node* symbol,Node* expr){
     Node* node = calloc(sizeof(Node),1);
     node->type = NODE_DECLARATION;
     node->declaration = declare;
+    
+    // Make sure it is not already in symbol table
+    if (getSymbolFromTable(currSymbolTable,symbol->expression->variable)!=NULL){
+        addErrorEntryToTable(errorTable,ERROR_VAR_ALREADY_EXISTS,symbol->expression->variable->name);
+    }
+    // Add to Symbol Table
+    else{
+        addSymbolToSymbolTable(currSymbolTable,symbol->expression->variable,type);
+    }
 
     return node;
 }

@@ -63,14 +63,14 @@ line : assignment TOKEN_SEMI { $$ = $1 } |
        for { $$ = $1; } |
        if { $$ = $1; };
 
-declaration : TOKEN_INT_KEYWORD variable { $$ = createDeclarationNode(DECLARE_INT,$2,createExpressionIntNode(0)); } 
-              | TOKEN_INT_KEYWORD variable TOKEN_EQUAL expr { $$ = createDeclarationNode(DECLARE_INT,$2,$4);};
-              | TOKEN_FLOAT_KEYWORD variable { $$ = createDeclarationNode(DECLARE_FLOAT,$2,createExpressionFloatNode(0)); }
-              | TOKEN_FLOAT_KEYWORD variable TOKEN_EQUAL expr { $$ = createDeclarationNode(DECLARE_FLOAT,$2,$4); }
-              | TOKEN_CHAR_KEYWORD variable { $$ = createDeclarationNode(DECLARE_CHAR,$2,createExpressionCharNode('a')); }
-              | TOKEN_CHAR_KEYWORD variable TOKEN_EQUAL expr { $$ = createDeclarationNode(DECLARE_CHAR,$2,$4); }
-              | TOKEN_BOOL_KEYWORD variable { $$ = createDeclarationNode(DECLARE_BOOL,$2,createExpressionBoolNode(0)); }
-              | TOKEN_BOOL_KEYWORD variable TOKEN_EQUAL expr { $$ = createDeclarationNode(DECLARE_BOOL,$2,$4); };
+declaration : TOKEN_INT_KEYWORD firstVariable { $$ = createDeclarationNode(DECLARE_INT,$2,createExpressionIntNode(0)); } 
+              | TOKEN_INT_KEYWORD firstVariable TOKEN_EQUAL expr { $$ = createDeclarationNode(DECLARE_INT,$2,$4);};
+              | TOKEN_FLOAT_KEYWORD firstVariable { $$ = createDeclarationNode(DECLARE_FLOAT,$2,createExpressionFloatNode(0)); }
+              | TOKEN_FLOAT_KEYWORD firstVariable TOKEN_EQUAL expr { $$ = createDeclarationNode(DECLARE_FLOAT,$2,$4); }
+              | TOKEN_CHAR_KEYWORD firstVariable { $$ = createDeclarationNode(DECLARE_CHAR,$2,createExpressionCharNode('a')); }
+              | TOKEN_CHAR_KEYWORD firstVariable TOKEN_EQUAL expr { $$ = createDeclarationNode(DECLARE_CHAR,$2,$4); }
+              | TOKEN_BOOL_KEYWORD firstVariable { $$ = createDeclarationNode(DECLARE_BOOL,$2,createExpressionBoolNode(0)); }
+              | TOKEN_BOOL_KEYWORD firstVariable TOKEN_EQUAL expr { $$ = createDeclarationNode(DECLARE_BOOL,$2,$4); };
 
 assignment : variable TOKEN_EQUAL expr { $$ = createAssignmentNode($1,$3); }
        | variable TOKEN_ADD_EQUAL expr { $$ = createAssignmentNode($1,createExpressionNode(EXPR_ADD,$1,$3)); }
@@ -95,7 +95,8 @@ elseif : TOKEN_ELSE_KEYWORD TOKEN_IF_KEYWORD TOKEN_LPAREN expr TOKEN_RPAREN TOKE
 
 else : TOKEN_ELSE_KEYWORD TOKEN_LCURL lines TOKEN_RCURL { $$ = createIfStatementNode(NULL,$3,NULL,1); };
 
-variable : TOKEN_IDENT { $$ = createExpressionSymbolNode(yytext); }
+variable : TOKEN_IDENT { $$ = createExpressionSymbolNode(yytext,0); }
+firstVariable: TOKEN_IDENT { $$ = createExpressionSymbolNode(yytext,1); }
 
 expr : expr TOKEN_ADD term { $$ = createExpressionNode(EXPR_ADD,$1,$3); }
      | expr TOKEN_MINUS term { $$ = createExpressionNode(EXPR_SUB,$1,$3); }
@@ -122,7 +123,7 @@ factor : TOKEN_MINUS factor { $$ = createExpressionNode(EXPR_SUB,createExpressio
        | TOKEN_CHAR { $$ = createExpressionCharNode(yytext[1]); }
        | TOKEN_FALSE_KEYWORD { $$ = createExpressionBoolNode(0); }
        | TOKEN_TRUE_KEYWORD { $$ = createExpressionBoolNode(1); }
-       | TOKEN_IDENT { $$ = createExpressionSymbolNode(yytext); };
+       | TOKEN_IDENT { $$ = createExpressionSymbolNode(yytext,0); };
 
 %%
 

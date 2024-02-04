@@ -104,7 +104,7 @@ Node* createExpressionIntNode(int value);
 Node* createExpressionFloatNode(float value);
 Node* createExpressionCharNode(char value);
 Node* createExpressionBoolNode(int value);
-Node* createExpressionSymbolNode(char* name);
+Node* createExpressionSymbolNode(char* name, int isDeclaring);
 
 Node* createAssignmentNode(Node* symbol,Node* expr);
 Node* createDeclarationNode(DeclarationType type,Node* symbol,Node* expr);
