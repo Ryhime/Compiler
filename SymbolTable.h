@@ -8,9 +8,25 @@ typedef struct symbolTable{
 typedef struct symbolTableEntry{
     Symbol* symbol;
     DeclarationType symbolType;
+    union symbolValue* value;
     struct symbolTableEntry* next;
 } SymbolTableEntry;
 
+
+typedef union symbolValue{
+    int integer;
+    float floating;
+    char character;
+    int boolean;
+} SymbolValue;
+
 SymbolTable* createSymbolTable();
-void addSymbolToSymbolTable(SymbolTable* symbolTable, Symbol* symbol, DeclarationType type);
+void addSymbolToSymbolTable(SymbolTable* symbolTable, Symbol* symbol, DeclarationType type,
+    int integer, float floating, char character, int boolean);
+    
 SymbolTableEntry* getSymbolFromTable(SymbolTable* symbolTable, Symbol* symbol);
+
+void updateSymbolInSymbolTable(SymbolTable* symbolTable, Symbol* symbol, 
+    int integer, float floating, char character, int boolean);
+void printSymbolTable(SymbolTable* symbolTable);
+void freeSymbolTable(SymbolTable* symbolTable);

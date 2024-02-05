@@ -30,6 +30,7 @@ int main(){
     else{
         printAST(parserResult);
     }
+    printSymbolTable(currSymbolTable);
     return 0;
 }
 
@@ -117,7 +118,7 @@ Node* createDeclarationNode(DeclarationType type,Node* symbol,Node* expr){
     }
     // Add to Symbol Table
     else{
-        addSymbolToSymbolTable(currSymbolTable,symbol->expression->variable,type);
+        addSymbolToSymbolTable(currSymbolTable,symbol->expression->variable,type,0,0.0,'A',0);
     }
 
     return node;

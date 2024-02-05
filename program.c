@@ -1,5 +1,2 @@
-int a;
+bool a = 5;
 int b;
-if (a==cjkdfla){
-    a = 5;
-}
