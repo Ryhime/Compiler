@@ -29,4 +29,3 @@ SymbolTableEntry* getSymbolFromTable(SymbolTable* symbolTable, Symbol* symbol);
 void updateSymbolInSymbolTable(SymbolTable* symbolTable, Symbol* symbol, 
     int integer, float floating, char character, int boolean);
 void printSymbolTable(SymbolTable* symbolTable);
-void freeSymbolTable(SymbolTable* symbolTable);

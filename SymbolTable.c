@@ -106,7 +106,7 @@ void printSymbolTable(SymbolTable* symbolTable){
             default:
                 printf("NOT IMPLEMENTED YET!\n");
         }
-        printf("%s = ",entry->symbol);
+        printf("%s = ",entry->symbol->name);
         switch (entry->symbolType){
             case DECLARE_INT:
                 printf("%d",entry->value->integer);
@@ -128,5 +128,3 @@ void printSymbolTable(SymbolTable* symbolTable){
         entry = entry->next;
     }
 }
-
-void freeSymbolTable(SymbolTable* symbolTable);

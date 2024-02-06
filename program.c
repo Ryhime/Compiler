@@ -1,2 +1,2 @@
 bool a = 5;
-int b;
+int b = 20;

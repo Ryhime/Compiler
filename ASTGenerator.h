@@ -3,6 +3,7 @@ typedef enum{
     EXPR_SUB,
     EXPR_DIV,
     EXPR_MUL,
+
     EXPR_INT,
     EXPR_FLOAT,
     EXPR_CHAR,
@@ -14,6 +15,7 @@ typedef enum{
     EXPR_GREATER,
     EXPR_LESS_EQUAL,
     EXPR_GREATER_EQUAL,
+    
     EXPR_NOT,
     EXPR_AND,
     EXPR_OR,
