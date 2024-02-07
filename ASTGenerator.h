@@ -117,5 +117,7 @@ Node* createForLoopNode(Node* initExpr, Node* conditionExpr, Node* iterExpr, Nod
 
 Node* createIfStatementNode(Node* expr, Node* insideLines, Node* falseCondition, int isElse);
 
+void freeNode(Node* node);
+
 void printAST(Node* root);
 void printASTHelper(Node* root, int depth);

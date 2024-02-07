@@ -170,6 +170,9 @@ Node* createIfStatementNode(Node* expr, Node* insideLines, Node* falseCondition,
     return toReturnNode;
 }
 
+void freeNode(Node* node){
+}
+
 void printAST(Node* root){
     while (root!=NULL){
         printf("====================\n");
