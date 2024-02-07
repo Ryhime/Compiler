@@ -1,8 +1,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "SymbolTable.h"
 #include "ErrorHandler.h"
+#include "CodeOptimizer.h"
+
+
 
 extern FILE *yyin;
 extern int yyparse();
@@ -24,6 +26,9 @@ int main(){
         printf("Failed to parse\n");
         return -1;
     }
+
+    // Optimize
+    constantFolding(parserResult);
     if (errorTable->head!=NULL){
         printErrorTable(errorTable);
     }
@@ -47,6 +52,7 @@ Node* createExpressionNode(ExpressionType type,Node* left,Node* right){
     Node* toReturn = calloc(sizeof(Node),1);
     toReturn->type = NODE_EXPRESSION;
     toReturn->expression = toCreate;
+
     return toReturn;
 }
 
