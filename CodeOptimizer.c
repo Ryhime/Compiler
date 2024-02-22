@@ -10,11 +10,9 @@ void constantFoldExpression(Expression* expr){
     constantFoldExpression(left);
     constantFoldExpression(right);
     // If either left or right are vars can't do anything
-    if (left->type==EXPR_VAR || right->type==EXPR_VAR) return;
-
-    // Should definitely move later since it might be used in other parts just not right now
-    // See return types
+    if (expr->left->expression->type==EXPR_VAR || expr->right->expression->type==EXPR_VAR) return;
     if (left->type==EXPR_INT && right->type==EXPR_INT){
+        int modifiedToBool = 0;
         switch (expr->type){
             case EXPR_ADD:
                 expr->integer = left->integer+right->integer;
@@ -28,8 +26,30 @@ void constantFoldExpression(Expression* expr){
             case EXPR_DIV:
                 expr->integer = left->integer/right->integer;
                 break;
+            case EXPR_GREATER:
+                expr->boolean = left->integer>right->integer;
+                modifiedToBool = 1;
+                break;
+            case EXPR_GREATER_EQUAL:
+                expr->boolean = left->integer>=right->integer;
+                modifiedToBool = 1;
+                break;
+            case EXPR_LESS:
+                expr->boolean = left->integer<right->integer;
+                modifiedToBool = 1;
+                break;
+            case EXPR_LESS_EQUAL:
+                expr->boolean = left->integer<=left->integer;
+                modifiedToBool = 1;
+                break;
+            case EXPR_EQUAL:
+                expr->boolean = left->integer==right->integer;
+                modifiedToBool = 1;
+                break;
+            
         }
-        expr->type = EXPR_INT;
+        if (modifiedToBool==0) expr->type = EXPR_INT;
+        else expr->type = EXPR_BOOL;
         freeNode(expr->left);
         freeNode(expr->right);
         expr->left = NULL;
@@ -65,6 +85,24 @@ void constantFoldExpression(Expression* expr){
         expr->left = NULL;
         expr->right = NULL;
     }
+    else if (left->type==EXPR_BOOL && right->type==EXPR_BOOL){
+        switch (expr->type){
+            case EXPR_AND:
+                expr->boolean = left->boolean && right->boolean;
+                break;
+            case EXPR_OR:
+                expr->boolean = left->boolean || right->boolean;
+                break;
+            case EXPR_XOR:
+                expr->boolean = (left->boolean && !right->boolean) || (!left->boolean && right->boolean);
+                break;
+        }
+        expr->type = EXPR_BOOL;
+        freeNode(expr->left);
+        freeNode(expr->right);
+        expr->left = NULL;
+        expr->right = NULL;
+    }
 }
 
 // Checks for things like if statements, while, for, etc.
@@ -75,6 +113,23 @@ void constantFoldingHelper(Node* root){
             break;
         case NODE_DECLARATION:
             constantFoldExpression(root->declaration->assignment->assignment->expr->expression);
+            break;
+        case NODE_IFSTATEMENT:
+            // Check conditional
+            constantFoldExpression(root->ifStatement->condition->expression);
+            // Check inside lines
+            constantFolding(root->ifStatement->insideLines);
+            break;
+        case NODE_FORLOOP:
+            constantFoldExpression(root->forLoop->initExpr->expression);
+            constantFoldExpression(root->forLoop->conditionExpr->expression);
+            constantFoldExpression(root->forLoop->iterationExpr->expression);
+            constantFolding(root->forLoop->insideLines);
+            break;
+
+        case NODE_WHILELOOP:
+            constantFoldExpression(root->whileLoop->conditionExpression->expression);
+            constantFolding(root->whileLoop->insideLines);
             break;
     }
 }

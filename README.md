@@ -6,4 +6,15 @@ To run:
 ./FullBuild.sh
 
 
-Loosely Typed (True+True) is valid
+Type Checking
+=============
+Primative Types:
+Integer
+Float
+Boolean
+Character
+
+
+Strongly Typed Language
+Valid Types:
+Integer with Float

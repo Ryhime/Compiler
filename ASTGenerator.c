@@ -4,6 +4,8 @@
 #include "ErrorHandler.h"
 #include "CodeOptimizer.h"
 
+// Acts as the main file of the program
+
 
 
 extern FILE *yyin;
@@ -171,6 +173,7 @@ Node* createIfStatementNode(Node* expr, Node* insideLines, Node* falseCondition,
 }
 
 void freeNode(Node* node){
+    
 }
 
 void printAST(Node* root){
@@ -196,7 +199,9 @@ void printASTHelper(Node* root,int depth){
         if (root->expression->type==EXPR_INT) printf("%d\n",root->expression->integer);
         else if (root->expression->type==EXPR_FLOAT) printf("%.6f\n",root->expression->floating);
         else if (root->expression->type==EXPR_CHAR) printf("%c\n",root->expression->character);
-        else if (root->expression->type==EXPR_BOOL) printf("%d\n",root->expression->boolean);
+        else if (root->expression->type==EXPR_BOOL){
+            printf("%s\n",root->expression->boolean?"True":"False");
+        } 
         else if (root->expression->type==EXPR_VAR) printf("%s\n",root->expression->variable->name);
 
         if (root->expression->left!=NULL) printASTHelper(root->expression->left,depth+1);

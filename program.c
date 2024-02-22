@@ -1,2 +1,5 @@
-bool a = ((10+5+11+5)*-1)/7.0;
-int b = 20;
+int b = 0;
+while (true){
+    // NOTE: This does not work because of order of operations
+    int a = 7+8>5 and false;
+}
