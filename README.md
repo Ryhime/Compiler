@@ -5,16 +5,4 @@ Compiler based off the book - Introduction to Compilers and Language Design: Sec
 To run: 
 ./FullBuild.sh
 
-
-Type Checking
-=============
-Primative Types:
-Integer
-Float
-Boolean
-Character
-
-
-Strongly Typed Language
-Valid Types:
-Integer with Float
+Check the "Documentation" Folder for more Information
