@@ -89,7 +89,6 @@ typedef struct node{
     NodeType type;
     struct node* next;
 
-    // Could use a union do in future
     struct declaration* declaration;
     struct assign* assignment;
     struct expr* expression;
