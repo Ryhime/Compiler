@@ -128,7 +128,6 @@ Node* createDeclarationNode(DeclarationType type,Node* symbol,Node* expr){
     else{
         addSymbolToSymbolTable(currSymbolTable,symbol->expression->variable,type,0,0.0,'A',0);
     }
-
     return node;
 }
 
