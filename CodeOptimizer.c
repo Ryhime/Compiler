@@ -121,9 +121,9 @@ void constantFoldingHelper(Node* root){
             constantFolding(root->ifStatement->insideLines);
             break;
         case NODE_FORLOOP:
-            constantFoldExpression(root->forLoop->initExpr->expression);
+            constantFoldExpression(root->forLoop->initExpr->declaration->assignment->assignment->expr->expression);
             constantFoldExpression(root->forLoop->conditionExpr->expression);
-            constantFoldExpression(root->forLoop->iterationExpr->expression);
+            constantFoldExpression(root->forLoop->iterationExpr->assignment->expr->expression);
             constantFolding(root->forLoop->insideLines);
             break;
 
