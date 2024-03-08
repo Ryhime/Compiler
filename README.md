@@ -18,3 +18,7 @@ Character
 Strongly Typed Language
 Valid Types:
 Integer with Float
+
+
+TOOD:
+- Fix for loop seg fault in costant folding

@@ -30,7 +30,7 @@ int main(){
     }
 
     // Optimize
-    constantFolding(parserResult);
+    // constantFolding(parserResult);
 
     if (errorTable->head!=NULL){
         printErrorTable(errorTable);
