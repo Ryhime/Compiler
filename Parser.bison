@@ -28,6 +28,9 @@
 %token TOKEN_MUL_EQUAL
 %token TOKEN_DIV_EQUAL
 
+%token TOKEN_DOUBLE_ADD
+%token TOKEN_DOUBLE_SUB
+
 %token TOKEN_OR
 %token TOKEN_AND
 %token TOKEN_XOR
@@ -77,14 +80,15 @@ assignment : variable TOKEN_EQUAL expr { $$ = createAssignmentNode($1,$3); }
        | variable TOKEN_SUB_EQUAL expr { $$ = createAssignmentNode($1,createExpressionNode(EXPR_SUB,$1,$3)); }
        | variable TOKEN_MUL_EQUAL expr { $$ = createAssignmentNode($1,createExpressionNode(EXPR_MUL,$1,$3)); }
        | variable TOKEN_DIV_EQUAL expr { $$ = createAssignmentNode($1,createExpressionNode(EXPR_DIV,$1,$3)); }
+       | variable TOKEN_DOUBLE_ADD { $$ = createAssignmentNode($1, createExpressionNode(EXPR_ADD,$1,createExpressionIntNode(1))); }
+       | variable TOKEN_DOUBLE_SUB { $$ = createAssignmentNode($1, createExpressionNode(EXPR_SUB,$1,createExpressionIntNode(1))); }
 
-while : TOKEN_WHILE_KEYWORD TOKEN_LPAREN expr TOKEN_RPAREN TOKEN_LCURL lines TOKEN_RCURL { $$ = createWhileLoopNode($3,$6); }
-       | TOKEN_WHILE_KEYWORD TOKEN_LPAREN expr TOKEN_RPAREN TOKEN_LCURL TOKEN_RCURL;
+while : TOKEN_WHILE_KEYWORD TOKEN_LPAREN expr TOKEN_RPAREN TOKEN_LCURL lines TOKEN_RCURL { $$ = createWhileLoopNode($3,$6); };
 
-for : TOKEN_FOR_KEYWORD TOKEN_LPAREN declaration TOKEN_SEMI expr TOKEN_SEMI assignment TOKEN_RPAREN TOKEN_LCURL lines TOKEN_RCURL { $$ = createForLoopNode($3,$5,$7,$10); }
+for : TOKEN_FOR_KEYWORD TOKEN_LPAREN declaration TOKEN_SEMI expr TOKEN_SEMI assignment TOKEN_RPAREN TOKEN_LCURL lines TOKEN_RCURL { $$ = createForLoopNode($3,$5,$7,$10); };
 
 if : TOKEN_IF_KEYWORD TOKEN_LPAREN expr TOKEN_RPAREN TOKEN_LCURL lines TOKEN_RCURL { $$ = createIfStatementNode($3,$6,NULL,0); }
-       | TOKEN_IF_KEYWORD TOKEN_LPAREN expr TOKEN_RPAREN TOKEN_LCURL lines TOKEN_RCURL elseif { $$ = createIfStatementNode($3,$6,$8,0); };
+       | TOKEN_IF_KEYWORD TOKEN_LPAREN expr TOKEN_RPAREN TOKEN_LCURL lines TOKEN_RCURL elseif { $$ = createIfStatementNode($3,$6,$8,0); }
        | TOKEN_IF_KEYWORD TOKEN_LPAREN expr TOKEN_RPAREN TOKEN_LCURL lines TOKEN_RCURL else { $$ = createIfStatementNode($3,$6,$8,0); };
 
 

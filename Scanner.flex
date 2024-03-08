@@ -25,6 +25,9 @@ false {return TOKEN_FALSE_KEYWORD;}
 -= {return TOKEN_SUB_EQUAL;}
 (\/=)|(\\=) {return TOKEN_DIV_EQUAL;}
 
+\+\+ {return TOKEN_DOUBLE_ADD;}
+-- {return TOKEN_DOUBLE_SUB;}
+
 
 \< {return TOKEN_LESS;}
 \> {return TOKEN_GREATER;}

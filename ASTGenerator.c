@@ -31,6 +31,7 @@ int main(){
 
     // Optimize
     constantFolding(parserResult);
+
     if (errorTable->head!=NULL){
         printErrorTable(errorTable);
     }
@@ -186,7 +187,7 @@ void printAST(Node* root){
 
 void printASTHelper(Node* root,int depth){
     for (int i=0;i<depth;i++){
-        printf("-");
+        printf("=");
     }
     // Print node
     if (root->type==NODE_ASSIGN){
