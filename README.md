@@ -21,4 +21,5 @@ Integer with Float
 
 
 TOOD:
-- Fix for loop seg fault in costant folding
+- Add function calling to expression
+    - NOTE: How to handle embedded function calls?
