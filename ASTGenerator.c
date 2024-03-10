@@ -127,7 +127,7 @@ Node* createDeclarationNode(DeclarationType type,Node* symbol,Node* expr){
     }
     // Add to Symbol Table
     else{
-        addSymbolToSymbolTable(currSymbolTable,symbol->expression->variable,type,0,0.0,'A',0);
+        addSymbolToSymbolTable(currSymbolTable,symbol->expression->variable,type,0,0.0,'A',0,0);
     }
     return node;
 }
@@ -191,7 +191,7 @@ Node* createFunctionNode(DeclarationType returnType, Node* fnSymbol, Node* insid
     }
     // Add to Symbol Table
     else{
-        addSymbolToSymbolTable(currSymbolTable,func->functionSymbol->expression->variable,returnType,0,0.0,'A',0);
+        addSymbolToSymbolTable(currSymbolTable,func->functionSymbol->expression->variable,returnType,0,0.0,'A',0,1);
     }
     return toReturnNode;
 }
