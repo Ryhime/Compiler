@@ -46,7 +46,8 @@ typedef enum{
     DECLARE_INT,
     DECLARE_FLOAT,
     DECLARE_CHAR,
-    DECLARE_BOOL
+    DECLARE_BOOL,
+    DECLARE_VOID
 } DeclarationType;
 
 
@@ -75,13 +76,25 @@ typedef struct ifStatement{
     int isElse;
 } IfStatement;
 
+typedef struct function{
+    struct node* functionSymbol;
+    // HOW TO DO PARAMETERS
+    DeclarationType returnType;
+
+    struct node* insideLines;
+
+    int hasReturnExpression;
+    struct node* returnExpression;
+} Function;
+
 typedef enum{
     NODE_DECLARATION,
     NODE_ASSIGN,
     NODE_EXPRESSION,
     NODE_WHILELOOP,
     NODE_FORLOOP,
-    NODE_IFSTATEMENT
+    NODE_IFSTATEMENT,
+    NODE_FUNCTION
 } NodeType;
 
 
@@ -95,6 +108,7 @@ typedef struct node{
     struct whileLoop* whileLoop;
     struct forLoop* forLoop;
     struct ifStatement* ifStatement;
+    struct function* function;
 } Node;
 
 Node* connectNodes(Node* top,Node* bottom);
@@ -115,6 +129,8 @@ Node* createWhileLoopNode(Node* expression, Node* insideLines);
 Node* createForLoopNode(Node* initExpr, Node* conditionExpr, Node* iterExpr, Node* insideLines);
 
 Node* createIfStatementNode(Node* expr, Node* insideLines, Node* falseCondition, int isElse);
+
+Node* createFunctionNode(DeclarationType returnType, Node* fnSymbol, Node* insideLines, Node* returnExpression);
 
 void freeNode(Node* node);
 

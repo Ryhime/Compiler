@@ -1,4 +1,6 @@
-int b = 0;
-for (int i=5*8;i<5+5-7;i++){
-    b = true or false;
+func a()->int{
+    int b = 5;
+    return b+5;
 }
+
+b = 5;

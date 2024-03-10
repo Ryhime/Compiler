@@ -17,10 +17,13 @@ char {return TOKEN_CHAR_KEYWORD;}
 bool {return TOKEN_BOOL_KEYWORD;}
 true {return TOKEN_TRUE_KEYWORD;}
 false {return TOKEN_FALSE_KEYWORD;}
+func {return TOKEN_FUNCTION_KEYWORD;}
+return {return TOKEN_RETURN_KEYWORD;}
+-> {return TOKEN_IMPLIES;}
 
 
 == {return TOKEN_DOUBLE_EQUAL;}
-\*= {return TOKEN_MUL_EQUAL;}
+\*= {return TOKEN_MUL_EQUAL;}   
 \+= {return TOKEN_ADD_EQUAL;}
 -= {return TOKEN_SUB_EQUAL;}
 (\/=)|(\\=) {return TOKEN_DIV_EQUAL;}
