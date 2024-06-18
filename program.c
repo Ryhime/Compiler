@@ -1,9 +1,10 @@
-func a(){
+func a() -> int{
     float b = 5;
+    return b;
 }
 
-b = 5;
+int c = 5;
 
-func a(){
-    int c = 5;
+for (int i=0;i<5;i++){
+    c++;
 }
