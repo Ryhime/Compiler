@@ -94,7 +94,10 @@ extern int yydebug;
     TOKEN_BOOL_KEYWORD = 295,      /* TOKEN_BOOL_KEYWORD  */
     TOKEN_TRUE_KEYWORD = 296,      /* TOKEN_TRUE_KEYWORD  */
     TOKEN_FALSE_KEYWORD = 297,     /* TOKEN_FALSE_KEYWORD  */
-    TOKEN_IDENT = 298              /* TOKEN_IDENT  */
+    TOKEN_FUNCTION_KEYWORD = 298,  /* TOKEN_FUNCTION_KEYWORD  */
+    TOKEN_RETURN_KEYWORD = 299,    /* TOKEN_RETURN_KEYWORD  */
+    TOKEN_IMPLIES = 300,           /* TOKEN_IMPLIES  */
+    TOKEN_IDENT = 301              /* TOKEN_IDENT  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif

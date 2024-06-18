@@ -150,23 +150,27 @@ enum yysymbol_kind_t
   YYSYMBOL_TOKEN_BOOL_KEYWORD = 40,        /* TOKEN_BOOL_KEYWORD  */
   YYSYMBOL_TOKEN_TRUE_KEYWORD = 41,        /* TOKEN_TRUE_KEYWORD  */
   YYSYMBOL_TOKEN_FALSE_KEYWORD = 42,       /* TOKEN_FALSE_KEYWORD  */
-  YYSYMBOL_TOKEN_IDENT = 43,               /* TOKEN_IDENT  */
-  YYSYMBOL_YYACCEPT = 44,                  /* $accept  */
-  YYSYMBOL_program = 45,                   /* program  */
-  YYSYMBOL_lines = 46,                     /* lines  */
-  YYSYMBOL_line = 47,                      /* line  */
-  YYSYMBOL_declaration = 48,               /* declaration  */
-  YYSYMBOL_assignment = 49,                /* assignment  */
-  YYSYMBOL_while = 50,                     /* while  */
-  YYSYMBOL_for = 51,                       /* for  */
-  YYSYMBOL_if = 52,                        /* if  */
-  YYSYMBOL_elseif = 53,                    /* elseif  */
-  YYSYMBOL_else = 54,                      /* else  */
-  YYSYMBOL_variable = 55,                  /* variable  */
-  YYSYMBOL_firstVariable = 56,             /* firstVariable  */
-  YYSYMBOL_expr = 57,                      /* expr  */
-  YYSYMBOL_term = 58,                      /* term  */
-  YYSYMBOL_factor = 59                     /* factor  */
+  YYSYMBOL_TOKEN_FUNCTION_KEYWORD = 43,    /* TOKEN_FUNCTION_KEYWORD  */
+  YYSYMBOL_TOKEN_RETURN_KEYWORD = 44,      /* TOKEN_RETURN_KEYWORD  */
+  YYSYMBOL_TOKEN_IMPLIES = 45,             /* TOKEN_IMPLIES  */
+  YYSYMBOL_TOKEN_IDENT = 46,               /* TOKEN_IDENT  */
+  YYSYMBOL_YYACCEPT = 47,                  /* $accept  */
+  YYSYMBOL_program = 48,                   /* program  */
+  YYSYMBOL_lines = 49,                     /* lines  */
+  YYSYMBOL_line = 50,                      /* line  */
+  YYSYMBOL_declaration = 51,               /* declaration  */
+  YYSYMBOL_assignment = 52,                /* assignment  */
+  YYSYMBOL_while = 53,                     /* while  */
+  YYSYMBOL_for = 54,                       /* for  */
+  YYSYMBOL_if = 55,                        /* if  */
+  YYSYMBOL_elseif = 56,                    /* elseif  */
+  YYSYMBOL_else = 57,                      /* else  */
+  YYSYMBOL_function = 58,                  /* function  */
+  YYSYMBOL_variable = 59,                  /* variable  */
+  YYSYMBOL_firstVariable = 60,             /* firstVariable  */
+  YYSYMBOL_expr = 61,                      /* expr  */
+  YYSYMBOL_term = 62,                      /* term  */
+  YYSYMBOL_factor = 63                     /* factor  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -283,7 +287,7 @@ typedef int yytype_uint16;
 
 
 /* Stored state numbers (used for stacks). */
-typedef yytype_int8 yy_state_t;
+typedef yytype_uint8 yy_state_t;
 
 /* State numbers in computations.  */
 typedef int yy_state_fast_t;
@@ -492,21 +496,21 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  26
+#define YYFINAL  29
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   146
+#define YYLAST   204
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  44
+#define YYNTOKENS  47
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  16
+#define YYNNTS  17
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  58
+#define YYNRULES  64
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  123
+#define YYNSTATES  160
 
 /* YYMAXUTOK -- Last valid token kind.  */
-#define YYMAXUTOK   298
+#define YYMAXUTOK   301
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -549,19 +553,21 @@ static const yytype_int8 yytranslate[] =
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
       25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
-      35,    36,    37,    38,    39,    40,    41,    42,    43
+      35,    36,    37,    38,    39,    40,    41,    42,    43,    44,
+      45,    46
 };
 
 #if YYDEBUG
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    60,    60,    61,    61,    63,    64,    65,    66,    67,
-      69,    70,    71,    72,    73,    74,    75,    76,    78,    79,
-      80,    81,    82,    83,    84,    86,    88,    90,    91,    92,
-      95,    96,    97,   100,   102,   103,   105,   106,   107,   108,
-     109,   110,   111,   114,   115,   116,   117,   118,   119,   120,
-     121,   123,   124,   125,   126,   127,   128,   129,   130
+       0,    64,    64,    65,    65,    67,    68,    69,    70,    71,
+      72,    74,    75,    76,    77,    78,    79,    80,    81,    83,
+      84,    85,    86,    87,    88,    89,    91,    93,    95,    96,
+      97,   100,   101,   102,   105,   107,   108,   109,   110,   111,
+     113,   115,   117,   118,   119,   120,   121,   122,   123,   126,
+     127,   128,   129,   130,   131,   132,   133,   135,   136,   137,
+     138,   139,   140,   141,   142
 };
 #endif
 
@@ -588,9 +594,10 @@ static const char *const yytname[] =
   "TOKEN_IF_KEYWORD", "TOKEN_ELSE_KEYWORD", "TOKEN_WHILE_KEYWORD",
   "TOKEN_FOR_KEYWORD", "TOKEN_INT_KEYWORD", "TOKEN_FLOAT_KEYWORD",
   "TOKEN_CHAR_KEYWORD", "TOKEN_BOOL_KEYWORD", "TOKEN_TRUE_KEYWORD",
-  "TOKEN_FALSE_KEYWORD", "TOKEN_IDENT", "$accept", "program", "lines",
-  "line", "declaration", "assignment", "while", "for", "if", "elseif",
-  "else", "variable", "firstVariable", "expr", "term", "factor", YY_NULLPTR
+  "TOKEN_FALSE_KEYWORD", "TOKEN_FUNCTION_KEYWORD", "TOKEN_RETURN_KEYWORD",
+  "TOKEN_IMPLIES", "TOKEN_IDENT", "$accept", "program", "lines", "line",
+  "declaration", "assignment", "while", "for", "if", "elseif", "else",
+  "function", "variable", "firstVariable", "expr", "term", "factor", YY_NULLPTR
 };
 
 static const char *
@@ -600,7 +607,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-25)
+#define YYPACT_NINF (-28)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -612,21 +619,24 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 
 /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
    STATE-NUM.  */
-static const yytype_int8 yypact[] =
+static const yytype_int16 yypact[] =
 {
-      43,   -24,    -6,    -4,   -13,   -13,   -13,   -13,   -25,    27,
-     -25,    43,     2,     7,   -25,   -25,   -25,   111,     0,     0,
-     104,   -25,    28,    29,    48,    57,   -25,   -25,   -25,   -25,
-       0,     0,     0,     0,     0,   -25,   -25,   -25,   -25,   -25,
-      14,     0,     0,   -25,   -25,   -25,    47,   125,   -25,    66,
-      38,     0,     0,     0,     0,   102,   102,   102,   102,   102,
-     -25,   102,    89,    14,    14,    14,    14,    14,    56,    14,
-      14,    14,    14,    14,    14,    14,    59,     0,   102,   102,
-     102,   102,   -25,   125,   125,   125,   125,   125,    43,   -25,
-     -25,   -25,   -25,   -25,   -25,   -25,    43,    22,    46,    62,
-      49,    64,   -25,    73,   -22,   -25,   -25,    75,    43,    78,
-      43,    76,     0,    77,   -25,    95,   -25,    82,    43,    85,
-      64,   -25,   -25
+     135,   -25,   -18,     6,    -5,    -5,    -5,    -5,    -5,   -28,
+      34,   -28,   135,    16,    17,   -28,   -28,   -28,   -28,   166,
+       2,     2,   -27,   -28,    32,    39,    40,    41,    45,   -28,
+     -28,   -28,   -28,     2,     2,     2,     2,     2,   -28,   -28,
+     -28,   -28,   -28,    26,     2,     2,   -28,   -28,   -28,    -3,
+     180,   -28,   123,    43,     2,     2,     2,     2,    47,    76,
+      76,    76,    76,    76,   -28,    76,   133,    26,    26,    26,
+      26,    26,    60,    26,    26,    26,    26,    26,    26,    26,
+      62,     2,    76,    76,    76,    76,    -6,   -28,   180,   180,
+     180,   180,   180,   135,   -28,   -28,   -28,   -28,   -28,   -28,
+     -28,   135,    54,   135,   164,    46,    65,    55,    75,    64,
+      74,    83,    84,    88,   -28,    96,   -28,   135,   135,   135,
+     135,    12,   -28,   -28,   100,    80,    87,    90,    91,   135,
+     106,   135,     2,     2,     2,     2,   112,     2,   113,    63,
+      73,   103,   114,   -28,   142,   -28,   122,   124,   125,   130,
+     134,   -28,   -28,   -28,   -28,   135,   132,    88,   -28,   -28
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -634,115 +644,135 @@ static const yytype_int8 yypact[] =
    means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       0,     0,     0,     0,     0,     0,     0,     0,    34,     0,
-       2,     3,     0,     0,     7,     8,     9,     0,     0,     0,
-       0,    35,    10,    12,    14,    16,     1,     4,     6,     5,
-       0,     0,     0,     0,     0,    23,    24,    53,    54,    55,
-       0,     0,     0,    57,    56,    58,     0,    42,    50,     0,
-       0,     0,     0,     0,     0,    18,    19,    20,    21,    22,
-      51,    38,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,    11,    13,
-      15,    17,    52,    36,    37,    40,    39,    41,     0,    43,
-      44,    45,    46,    47,    48,    49,     0,     0,     0,     0,
-       0,    27,    25,     0,     0,    28,    29,     0,     0,     0,
-       0,     0,     0,     0,    33,     0,    26,     0,     0,     0,
-      30,    31,    32
+       0,     0,     0,     0,     0,     0,     0,     0,     0,    40,
+       0,     2,     3,     0,     0,     7,     8,     9,    10,     0,
+       0,     0,     0,    41,    11,    13,    15,    17,     0,     1,
+       4,     6,     5,     0,     0,     0,     0,     0,    24,    25,
+      59,    60,    61,     0,     0,     0,    63,    62,    64,     0,
+      48,    56,     0,     0,     0,     0,     0,     0,     0,    19,
+      20,    21,    22,    23,    57,    44,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,    12,    14,    16,    18,     0,    58,    42,    43,
+      46,    45,    47,     0,    49,    50,    51,    52,    53,    54,
+      55,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,    28,    26,     0,    35,     0,     0,     0,
+       0,     0,    29,    30,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,    34,     0,    27,     0,     0,     0,     0,
+       0,    36,    37,    38,    39,     0,     0,    31,    32,    33
 };
 
 /* YYPGOTO[NTERM-NUM].  */
-static const yytype_int8 yypgoto[] =
+static const yytype_int16 yypgoto[] =
 {
-     -25,   -25,   -11,   -25,   100,    15,   -25,   -25,   -25,    25,
-      26,   -25,     3,   -18,   -16,    -9
+     -28,   -28,   -12,   -28,   136,    56,   -28,   -28,   -28,    10,
+      20,   -28,   -28,    58,   -19,   129,   -20
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,     9,    10,    11,    12,    13,    14,    15,    16,   105,
-     106,    17,    22,    46,    47,    48
+       0,    10,    11,    12,    13,    14,    15,    16,    17,   122,
+     123,    18,    19,    24,    49,    50,    51
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
    positive, shift that token.  If negative, reduce the rule whose
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
-static const yytype_int8 yytable[] =
+static const yytype_uint8 yytable[] =
 {
-      27,    49,    18,    37,    38,    39,   108,    40,    23,    24,
-      25,   109,    55,    56,    57,    58,    59,    37,    38,    39,
-      19,    40,    20,    61,    62,    41,    42,    26,    63,    64,
-      21,    60,    28,    78,    79,    80,    81,    29,    51,    52,
-      42,    43,    44,    45,    65,    66,    67,    83,    84,    85,
-      86,    87,   100,    63,    64,    43,    44,    45,    53,    97,
-      89,    90,    91,    92,    93,    94,    95,    54,    77,    65,
-      66,    67,    63,    64,    68,   101,     1,    98,     2,     3,
-       4,     5,     6,     7,    88,    99,     8,    96,    65,    66,
-      67,   102,     8,    76,   115,    63,    64,   111,   104,   113,
-     107,    63,    64,   110,   112,   114,   116,   119,    63,    64,
-     118,    65,    66,    67,   120,   103,    82,    65,    66,    67,
-      50,    30,   117,     0,    65,    66,    67,    31,    32,    33,
-      34,    35,    36,    69,    70,     0,    71,    72,    73,    74,
-      75,     4,     5,     6,     7,   121,   122
+      30,    20,    52,    67,    68,    40,    41,    42,    21,    43,
+       4,     5,     6,     7,    59,    60,    61,    62,    63,    69,
+      70,    71,   103,    64,    72,    65,    66,    44,    45,    40,
+      41,    42,    22,    43,    29,    82,    83,    84,    85,   104,
+     129,    23,    54,    46,    47,   130,    31,    32,    48,    55,
+      56,    57,    45,    94,    95,    96,    97,    98,    99,   100,
+      67,    68,   102,    25,    26,    27,    28,    46,    47,    67,
+      68,    58,    48,    81,    86,   113,    69,    70,    71,    67,
+      68,   105,    67,    68,   107,    69,    70,    71,    93,   106,
+     101,   108,   117,   146,   114,    69,    70,    71,    69,    70,
+      71,     9,   118,   147,   116,   125,   126,   127,   128,    67,
+      68,   119,   120,   139,   140,   141,   142,   136,   144,   138,
+      67,    68,   121,   124,   132,    69,    70,    71,   131,    67,
+      68,   133,   137,   148,   134,   135,    69,    70,    71,    67,
+      68,   143,   145,   156,   149,    69,    70,    71,    67,    68,
+      80,   151,     0,   152,   153,    69,    70,    71,    53,   154,
+      87,   157,   155,   115,    69,    70,    71,   158,     1,   150,
+       2,     3,     4,     5,     6,     7,    33,   159,     8,     0,
+       0,     9,    34,    35,    36,    37,    38,    39,    73,    74,
+       0,    75,    76,    77,    78,    79,    88,    89,    90,    91,
+      92,   109,   110,   111,   112
 };
 
-static const yytype_int8 yycheck[] =
+static const yytype_int16 yycheck[] =
 {
-      11,    19,    26,     3,     4,     5,    28,     7,     5,     6,
-       7,    33,    30,    31,    32,    33,    34,     3,     4,     5,
-      26,     7,    26,    41,    42,    25,    26,     0,     6,     7,
-      43,    40,    30,    51,    52,    53,    54,    30,    10,    10,
-      26,    41,    42,    43,    22,    23,    24,    63,    64,    65,
-      66,    67,    30,     6,     7,    41,    42,    43,    10,    77,
-      69,    70,    71,    72,    73,    74,    75,    10,    30,    22,
-      23,    24,     6,     7,    27,    29,    33,    88,    35,    36,
-      37,    38,    39,    40,    28,    96,    43,    28,    22,    23,
-      24,    29,    43,    27,   112,     6,     7,   108,    34,   110,
-      27,     6,     7,    28,    26,    29,    29,   118,     6,     7,
-      28,    22,    23,    24,    29,   100,    27,    22,    23,    24,
-      20,    10,    27,    -1,    22,    23,    24,    16,    17,    18,
-      19,    20,    21,     8,     9,    -1,    11,    12,    13,    14,
-      15,    37,    38,    39,    40,   120,   120
+      12,    26,    21,     6,     7,     3,     4,     5,    26,     7,
+      37,    38,    39,    40,    33,    34,    35,    36,    37,    22,
+      23,    24,    28,    43,    27,    44,    45,    25,    26,     3,
+       4,     5,    26,     7,     0,    54,    55,    56,    57,    45,
+      28,    46,    10,    41,    42,    33,    30,    30,    46,    10,
+      10,    10,    26,    73,    74,    75,    76,    77,    78,    79,
+       6,     7,    81,     5,     6,     7,     8,    41,    42,     6,
+       7,    26,    46,    30,    27,    29,    22,    23,    24,     6,
+       7,    93,     6,     7,    30,    22,    23,    24,    28,   101,
+      28,   103,    28,    30,    29,    22,    23,    24,    22,    23,
+      24,    46,    28,    30,    29,   117,   118,   119,   120,     6,
+       7,    28,    28,   132,   133,   134,   135,   129,   137,   131,
+       6,     7,    34,    27,    44,    22,    23,    24,    28,     6,
+       7,    44,    26,    30,    44,    44,    22,    23,    24,     6,
+       7,    29,    29,   155,    30,    22,    23,    24,     6,     7,
+      27,    29,    -1,    29,    29,    22,    23,    24,    22,    29,
+      27,    29,    28,   107,    22,    23,    24,   157,    33,    27,
+      35,    36,    37,    38,    39,    40,    10,   157,    43,    -1,
+      -1,    46,    16,    17,    18,    19,    20,    21,     8,     9,
+      -1,    11,    12,    13,    14,    15,    67,    68,    69,    70,
+      71,    37,    38,    39,    40
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,    33,    35,    36,    37,    38,    39,    40,    43,    45,
-      46,    47,    48,    49,    50,    51,    52,    55,    26,    26,
-      26,    43,    56,    56,    56,    56,     0,    46,    30,    30,
-      10,    16,    17,    18,    19,    20,    21,     3,     4,     5,
-       7,    25,    26,    41,    42,    43,    57,    58,    59,    57,
-      48,    10,    10,    10,    10,    57,    57,    57,    57,    57,
-      59,    57,    57,     6,     7,    22,    23,    24,    27,     8,
-       9,    11,    12,    13,    14,    15,    27,    30,    57,    57,
-      57,    57,    27,    58,    58,    58,    58,    58,    28,    59,
-      59,    59,    59,    59,    59,    59,    28,    57,    46,    46,
-      30,    29,    29,    49,    34,    53,    54,    27,    28,    33,
-      28,    46,    26,    46,    29,    57,    29,    27,    28,    46,
-      29,    53,    54
+       0,    33,    35,    36,    37,    38,    39,    40,    43,    46,
+      48,    49,    50,    51,    52,    53,    54,    55,    58,    59,
+      26,    26,    26,    46,    60,    60,    60,    60,    60,     0,
+      49,    30,    30,    10,    16,    17,    18,    19,    20,    21,
+       3,     4,     5,     7,    25,    26,    41,    42,    46,    61,
+      62,    63,    61,    51,    10,    10,    10,    10,    26,    61,
+      61,    61,    61,    61,    63,    61,    61,     6,     7,    22,
+      23,    24,    27,     8,     9,    11,    12,    13,    14,    15,
+      27,    30,    61,    61,    61,    61,    27,    27,    62,    62,
+      62,    62,    62,    28,    63,    63,    63,    63,    63,    63,
+      63,    28,    61,    28,    45,    49,    49,    30,    49,    37,
+      38,    39,    40,    29,    29,    52,    29,    28,    28,    28,
+      28,    34,    56,    57,    27,    49,    49,    49,    49,    28,
+      33,    28,    44,    44,    44,    44,    49,    26,    49,    61,
+      61,    61,    61,    29,    61,    29,    30,    30,    30,    30,
+      27,    29,    29,    29,    29,    28,    49,    29,    56,    57
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    44,    45,    46,    46,    47,    47,    47,    47,    47,
-      48,    48,    48,    48,    48,    48,    48,    48,    49,    49,
-      49,    49,    49,    49,    49,    50,    51,    52,    52,    52,
-      53,    53,    53,    54,    55,    56,    57,    57,    57,    57,
-      57,    57,    57,    58,    58,    58,    58,    58,    58,    58,
-      58,    59,    59,    59,    59,    59,    59,    59,    59
+       0,    47,    48,    49,    49,    50,    50,    50,    50,    50,
+      50,    51,    51,    51,    51,    51,    51,    51,    51,    52,
+      52,    52,    52,    52,    52,    52,    53,    54,    55,    55,
+      55,    56,    56,    56,    57,    58,    58,    58,    58,    58,
+      59,    60,    61,    61,    61,    61,    61,    61,    61,    62,
+      62,    62,    62,    62,    62,    62,    62,    63,    63,    63,
+      63,    63,    63,    63,    63
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
        0,     2,     1,     1,     2,     2,     2,     1,     1,     1,
-       2,     4,     2,     4,     2,     4,     2,     4,     3,     3,
-       3,     3,     3,     2,     2,     7,    11,     7,     8,     8,
-       8,     9,     9,     4,     1,     1,     3,     3,     2,     3,
-       3,     3,     1,     3,     3,     3,     3,     3,     3,     3,
-       1,     2,     3,     1,     1,     1,     1,     1,     1
+       1,     2,     4,     2,     4,     2,     4,     2,     4,     3,
+       3,     3,     3,     3,     2,     2,     7,    11,     7,     8,
+       8,     8,     9,     9,     4,     7,    12,    12,    12,    12,
+       1,     1,     3,     3,     2,     3,     3,     3,     1,     3,
+       3,     3,     3,     3,     3,     3,     1,     2,     3,     1,
+       1,     1,     1,     1,     1
 };
 
 
@@ -1206,349 +1236,385 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* program: lines  */
-#line 60 "Parser.bison"
-                { parserResult = yyvsp[0]; }
-#line 1212 "Parser.c"
-    break;
-
-  case 3: /* lines: line  */
-#line 61 "Parser.bison"
-             { yyval = yyvsp[0]; }
-#line 1218 "Parser.c"
-    break;
-
-  case 4: /* lines: line lines  */
-#line 61 "Parser.bison"
-                                       { yyval = connectNodes(yyvsp[-1],yyvsp[0]); }
-#line 1224 "Parser.c"
-    break;
-
-  case 5: /* line: assignment TOKEN_SEMI  */
-#line 63 "Parser.bison"
-                             { yyval = yyvsp[-1]; }
-#line 1230 "Parser.c"
-    break;
-
-  case 6: /* line: declaration TOKEN_SEMI  */
 #line 64 "Parser.bison"
-                              { yyval = yyvsp[-1]; }
-#line 1236 "Parser.c"
-    break;
-
-  case 7: /* line: while  */
-#line 65 "Parser.bison"
-             { yyval = yyvsp[0]; }
+                { parserResult = yyvsp[0]; }
 #line 1242 "Parser.c"
     break;
 
-  case 8: /* line: for  */
-#line 66 "Parser.bison"
-           { yyval = yyvsp[0]; }
+  case 3: /* lines: line  */
+#line 65 "Parser.bison"
+             { yyval = yyvsp[0]; }
 #line 1248 "Parser.c"
     break;
 
-  case 9: /* line: if  */
-#line 67 "Parser.bison"
-          { yyval = yyvsp[0]; }
+  case 4: /* lines: line lines  */
+#line 65 "Parser.bison"
+                                       { yyval = connectNodes(yyvsp[-1],yyvsp[0]); }
 #line 1254 "Parser.c"
     break;
 
-  case 10: /* declaration: TOKEN_INT_KEYWORD firstVariable  */
-#line 69 "Parser.bison"
-                                              { yyval = createDeclarationNode(DECLARE_INT,yyvsp[0],createExpressionIntNode(0)); }
+  case 5: /* line: assignment TOKEN_SEMI  */
+#line 67 "Parser.bison"
+                             { yyval = yyvsp[-1]; }
 #line 1260 "Parser.c"
     break;
 
-  case 11: /* declaration: TOKEN_INT_KEYWORD firstVariable TOKEN_EQUAL expr  */
-#line 70 "Parser.bison"
-                                                                 { yyval = createDeclarationNode(DECLARE_INT,yyvsp[-2],yyvsp[0]);}
+  case 6: /* line: declaration TOKEN_SEMI  */
+#line 68 "Parser.bison"
+                              { yyval = yyvsp[-1]; }
 #line 1266 "Parser.c"
     break;
 
-  case 12: /* declaration: TOKEN_FLOAT_KEYWORD firstVariable  */
-#line 71 "Parser.bison"
-                                                  { yyval = createDeclarationNode(DECLARE_FLOAT,yyvsp[0],createExpressionFloatNode(0)); }
+  case 7: /* line: while  */
+#line 69 "Parser.bison"
+             { yyval = yyvsp[0]; }
 #line 1272 "Parser.c"
     break;
 
-  case 13: /* declaration: TOKEN_FLOAT_KEYWORD firstVariable TOKEN_EQUAL expr  */
-#line 72 "Parser.bison"
-                                                                   { yyval = createDeclarationNode(DECLARE_FLOAT,yyvsp[-2],yyvsp[0]); }
+  case 8: /* line: for  */
+#line 70 "Parser.bison"
+           { yyval = yyvsp[0]; }
 #line 1278 "Parser.c"
     break;
 
-  case 14: /* declaration: TOKEN_CHAR_KEYWORD firstVariable  */
-#line 73 "Parser.bison"
-                                                 { yyval = createDeclarationNode(DECLARE_CHAR,yyvsp[0],createExpressionCharNode('a')); }
+  case 9: /* line: if  */
+#line 71 "Parser.bison"
+          { yyval = yyvsp[0]; }
 #line 1284 "Parser.c"
     break;
 
-  case 15: /* declaration: TOKEN_CHAR_KEYWORD firstVariable TOKEN_EQUAL expr  */
-#line 74 "Parser.bison"
-                                                                  { yyval = createDeclarationNode(DECLARE_CHAR,yyvsp[-2],yyvsp[0]); }
+  case 10: /* line: function  */
+#line 72 "Parser.bison"
+                { yyval = yyvsp[0]; }
 #line 1290 "Parser.c"
     break;
 
-  case 16: /* declaration: TOKEN_BOOL_KEYWORD firstVariable  */
-#line 75 "Parser.bison"
-                                                 { yyval = createDeclarationNode(DECLARE_BOOL,yyvsp[0],createExpressionBoolNode(0)); }
+  case 11: /* declaration: TOKEN_INT_KEYWORD firstVariable  */
+#line 74 "Parser.bison"
+                                              { yyval = createDeclarationNode(DECLARE_INT,yyvsp[0],createExpressionIntNode(0)); }
 #line 1296 "Parser.c"
     break;
 
-  case 17: /* declaration: TOKEN_BOOL_KEYWORD firstVariable TOKEN_EQUAL expr  */
-#line 76 "Parser.bison"
-                                                                  { yyval = createDeclarationNode(DECLARE_BOOL,yyvsp[-2],yyvsp[0]); }
+  case 12: /* declaration: TOKEN_INT_KEYWORD firstVariable TOKEN_EQUAL expr  */
+#line 75 "Parser.bison"
+                                                                 { yyval = createDeclarationNode(DECLARE_INT,yyvsp[-2],yyvsp[0]);}
 #line 1302 "Parser.c"
     break;
 
-  case 18: /* assignment: variable TOKEN_EQUAL expr  */
-#line 78 "Parser.bison"
-                                       { yyval = createAssignmentNode(yyvsp[-2],yyvsp[0]); }
+  case 13: /* declaration: TOKEN_FLOAT_KEYWORD firstVariable  */
+#line 76 "Parser.bison"
+                                                  { yyval = createDeclarationNode(DECLARE_FLOAT,yyvsp[0],createExpressionFloatNode(0)); }
 #line 1308 "Parser.c"
     break;
 
-  case 19: /* assignment: variable TOKEN_ADD_EQUAL expr  */
-#line 79 "Parser.bison"
-                                       { yyval = createAssignmentNode(yyvsp[-2],createExpressionNode(EXPR_ADD,yyvsp[-2],yyvsp[0])); }
+  case 14: /* declaration: TOKEN_FLOAT_KEYWORD firstVariable TOKEN_EQUAL expr  */
+#line 77 "Parser.bison"
+                                                                   { yyval = createDeclarationNode(DECLARE_FLOAT,yyvsp[-2],yyvsp[0]); }
 #line 1314 "Parser.c"
     break;
 
-  case 20: /* assignment: variable TOKEN_SUB_EQUAL expr  */
-#line 80 "Parser.bison"
-                                       { yyval = createAssignmentNode(yyvsp[-2],createExpressionNode(EXPR_SUB,yyvsp[-2],yyvsp[0])); }
+  case 15: /* declaration: TOKEN_CHAR_KEYWORD firstVariable  */
+#line 78 "Parser.bison"
+                                                 { yyval = createDeclarationNode(DECLARE_CHAR,yyvsp[0],createExpressionCharNode('a')); }
 #line 1320 "Parser.c"
     break;
 
-  case 21: /* assignment: variable TOKEN_MUL_EQUAL expr  */
-#line 81 "Parser.bison"
-                                       { yyval = createAssignmentNode(yyvsp[-2],createExpressionNode(EXPR_MUL,yyvsp[-2],yyvsp[0])); }
+  case 16: /* declaration: TOKEN_CHAR_KEYWORD firstVariable TOKEN_EQUAL expr  */
+#line 79 "Parser.bison"
+                                                                  { yyval = createDeclarationNode(DECLARE_CHAR,yyvsp[-2],yyvsp[0]); }
 #line 1326 "Parser.c"
     break;
 
-  case 22: /* assignment: variable TOKEN_DIV_EQUAL expr  */
-#line 82 "Parser.bison"
-                                       { yyval = createAssignmentNode(yyvsp[-2],createExpressionNode(EXPR_DIV,yyvsp[-2],yyvsp[0])); }
+  case 17: /* declaration: TOKEN_BOOL_KEYWORD firstVariable  */
+#line 80 "Parser.bison"
+                                                 { yyval = createDeclarationNode(DECLARE_BOOL,yyvsp[0],createExpressionBoolNode(0)); }
 #line 1332 "Parser.c"
     break;
 
-  case 23: /* assignment: variable TOKEN_DOUBLE_ADD  */
-#line 83 "Parser.bison"
-                                   { yyval = createAssignmentNode(yyvsp[-1], createExpressionNode(EXPR_ADD,yyvsp[-1],createExpressionIntNode(1))); }
+  case 18: /* declaration: TOKEN_BOOL_KEYWORD firstVariable TOKEN_EQUAL expr  */
+#line 81 "Parser.bison"
+                                                                  { yyval = createDeclarationNode(DECLARE_BOOL,yyvsp[-2],yyvsp[0]); }
 #line 1338 "Parser.c"
     break;
 
-  case 24: /* assignment: variable TOKEN_DOUBLE_SUB  */
-#line 84 "Parser.bison"
-                                   { yyval = createAssignmentNode(yyvsp[-1], createExpressionNode(EXPR_SUB,yyvsp[-1],createExpressionIntNode(1))); }
+  case 19: /* assignment: variable TOKEN_EQUAL expr  */
+#line 83 "Parser.bison"
+                                       { yyval = createAssignmentNode(yyvsp[-2],yyvsp[0]); }
 #line 1344 "Parser.c"
     break;
 
-  case 25: /* while: TOKEN_WHILE_KEYWORD TOKEN_LPAREN expr TOKEN_RPAREN TOKEN_LCURL lines TOKEN_RCURL  */
-#line 86 "Parser.bison"
-                                                                                         { yyval = createWhileLoopNode(yyvsp[-4],yyvsp[-1]); }
+  case 20: /* assignment: variable TOKEN_ADD_EQUAL expr  */
+#line 84 "Parser.bison"
+                                       { yyval = createAssignmentNode(yyvsp[-2],createExpressionNode(EXPR_ADD,yyvsp[-2],yyvsp[0])); }
 #line 1350 "Parser.c"
     break;
 
-  case 26: /* for: TOKEN_FOR_KEYWORD TOKEN_LPAREN declaration TOKEN_SEMI expr TOKEN_SEMI assignment TOKEN_RPAREN TOKEN_LCURL lines TOKEN_RCURL  */
-#line 88 "Parser.bison"
-                                                                                                                                  { yyval = createForLoopNode(yyvsp[-8],yyvsp[-6],yyvsp[-4],yyvsp[-1]); }
+  case 21: /* assignment: variable TOKEN_SUB_EQUAL expr  */
+#line 85 "Parser.bison"
+                                       { yyval = createAssignmentNode(yyvsp[-2],createExpressionNode(EXPR_SUB,yyvsp[-2],yyvsp[0])); }
 #line 1356 "Parser.c"
     break;
 
-  case 27: /* if: TOKEN_IF_KEYWORD TOKEN_LPAREN expr TOKEN_RPAREN TOKEN_LCURL lines TOKEN_RCURL  */
-#line 90 "Parser.bison"
-                                                                                   { yyval = createIfStatementNode(yyvsp[-4],yyvsp[-1],NULL,0); }
+  case 22: /* assignment: variable TOKEN_MUL_EQUAL expr  */
+#line 86 "Parser.bison"
+                                       { yyval = createAssignmentNode(yyvsp[-2],createExpressionNode(EXPR_MUL,yyvsp[-2],yyvsp[0])); }
 #line 1362 "Parser.c"
     break;
 
-  case 28: /* if: TOKEN_IF_KEYWORD TOKEN_LPAREN expr TOKEN_RPAREN TOKEN_LCURL lines TOKEN_RCURL elseif  */
-#line 91 "Parser.bison"
-                                                                                              { yyval = createIfStatementNode(yyvsp[-5],yyvsp[-2],yyvsp[0],0); }
+  case 23: /* assignment: variable TOKEN_DIV_EQUAL expr  */
+#line 87 "Parser.bison"
+                                       { yyval = createAssignmentNode(yyvsp[-2],createExpressionNode(EXPR_DIV,yyvsp[-2],yyvsp[0])); }
 #line 1368 "Parser.c"
     break;
 
-  case 29: /* if: TOKEN_IF_KEYWORD TOKEN_LPAREN expr TOKEN_RPAREN TOKEN_LCURL lines TOKEN_RCURL else  */
-#line 92 "Parser.bison"
-                                                                                            { yyval = createIfStatementNode(yyvsp[-5],yyvsp[-2],yyvsp[0],0); }
+  case 24: /* assignment: variable TOKEN_DOUBLE_ADD  */
+#line 88 "Parser.bison"
+                                   { yyval = createAssignmentNode(yyvsp[-1], createExpressionNode(EXPR_ADD,yyvsp[-1],createExpressionIntNode(1))); }
 #line 1374 "Parser.c"
     break;
 
-  case 30: /* elseif: TOKEN_ELSE_KEYWORD TOKEN_IF_KEYWORD TOKEN_LPAREN expr TOKEN_RPAREN TOKEN_LCURL lines TOKEN_RCURL  */
-#line 95 "Parser.bison"
-                                                                                                          { yyval = createIfStatementNode(yyvsp[-4],yyvsp[-1],NULL,0); }
+  case 25: /* assignment: variable TOKEN_DOUBLE_SUB  */
+#line 89 "Parser.bison"
+                                   { yyval = createAssignmentNode(yyvsp[-1], createExpressionNode(EXPR_SUB,yyvsp[-1],createExpressionIntNode(1))); }
 #line 1380 "Parser.c"
     break;
 
-  case 31: /* elseif: TOKEN_ELSE_KEYWORD TOKEN_IF_KEYWORD TOKEN_LPAREN expr TOKEN_RPAREN TOKEN_LCURL lines TOKEN_RCURL elseif  */
-#line 96 "Parser.bison"
-                                                                                                                 { yyval = createIfStatementNode(yyvsp[-5],yyvsp[-2],yyvsp[0],0); }
+  case 26: /* while: TOKEN_WHILE_KEYWORD TOKEN_LPAREN expr TOKEN_RPAREN TOKEN_LCURL lines TOKEN_RCURL  */
+#line 91 "Parser.bison"
+                                                                                         { yyval = createWhileLoopNode(yyvsp[-4],yyvsp[-1]); }
 #line 1386 "Parser.c"
     break;
 
-  case 32: /* elseif: TOKEN_ELSE_KEYWORD TOKEN_IF_KEYWORD TOKEN_LPAREN expr TOKEN_RPAREN TOKEN_LCURL lines TOKEN_RCURL else  */
-#line 97 "Parser.bison"
-                                                                                                               { yyval = createIfStatementNode(yyvsp[-5],yyvsp[-2],yyvsp[0],0); }
+  case 27: /* for: TOKEN_FOR_KEYWORD TOKEN_LPAREN declaration TOKEN_SEMI expr TOKEN_SEMI assignment TOKEN_RPAREN TOKEN_LCURL lines TOKEN_RCURL  */
+#line 93 "Parser.bison"
+                                                                                                                                  { yyval = createForLoopNode(yyvsp[-8],yyvsp[-6],yyvsp[-4],yyvsp[-1]); }
 #line 1392 "Parser.c"
     break;
 
-  case 33: /* else: TOKEN_ELSE_KEYWORD TOKEN_LCURL lines TOKEN_RCURL  */
-#line 100 "Parser.bison"
-                                                        { yyval = createIfStatementNode(NULL,yyvsp[-1],NULL,1); }
+  case 28: /* if: TOKEN_IF_KEYWORD TOKEN_LPAREN expr TOKEN_RPAREN TOKEN_LCURL lines TOKEN_RCURL  */
+#line 95 "Parser.bison"
+                                                                                   { yyval = createIfStatementNode(yyvsp[-4],yyvsp[-1],NULL,0); }
 #line 1398 "Parser.c"
     break;
 
-  case 34: /* variable: TOKEN_IDENT  */
-#line 102 "Parser.bison"
-                       { yyval = createExpressionSymbolNode(yytext,0); }
+  case 29: /* if: TOKEN_IF_KEYWORD TOKEN_LPAREN expr TOKEN_RPAREN TOKEN_LCURL lines TOKEN_RCURL elseif  */
+#line 96 "Parser.bison"
+                                                                                              { yyval = createIfStatementNode(yyvsp[-5],yyvsp[-2],yyvsp[0],0); }
 #line 1404 "Parser.c"
     break;
 
-  case 35: /* firstVariable: TOKEN_IDENT  */
-#line 103 "Parser.bison"
-                           { yyval = createExpressionSymbolNode(yytext,1); }
+  case 30: /* if: TOKEN_IF_KEYWORD TOKEN_LPAREN expr TOKEN_RPAREN TOKEN_LCURL lines TOKEN_RCURL else  */
+#line 97 "Parser.bison"
+                                                                                            { yyval = createIfStatementNode(yyvsp[-5],yyvsp[-2],yyvsp[0],0); }
 #line 1410 "Parser.c"
     break;
 
-  case 36: /* expr: expr TOKEN_ADD term  */
-#line 105 "Parser.bison"
-                           { yyval = createExpressionNode(EXPR_ADD,yyvsp[-2],yyvsp[0]); }
+  case 31: /* elseif: TOKEN_ELSE_KEYWORD TOKEN_IF_KEYWORD TOKEN_LPAREN expr TOKEN_RPAREN TOKEN_LCURL lines TOKEN_RCURL  */
+#line 100 "Parser.bison"
+                                                                                                          { yyval = createIfStatementNode(yyvsp[-4],yyvsp[-1],NULL,0); }
 #line 1416 "Parser.c"
     break;
 
-  case 37: /* expr: expr TOKEN_MINUS term  */
-#line 106 "Parser.bison"
-                             { yyval = createExpressionNode(EXPR_SUB,yyvsp[-2],yyvsp[0]); }
+  case 32: /* elseif: TOKEN_ELSE_KEYWORD TOKEN_IF_KEYWORD TOKEN_LPAREN expr TOKEN_RPAREN TOKEN_LCURL lines TOKEN_RCURL elseif  */
+#line 101 "Parser.bison"
+                                                                                                                 { yyval = createIfStatementNode(yyvsp[-5],yyvsp[-2],yyvsp[0],0); }
 #line 1422 "Parser.c"
     break;
 
-  case 38: /* expr: TOKEN_NOT expr  */
-#line 107 "Parser.bison"
-                      { yyval = createExpressionNode(EXPR_NOT,yyvsp[0],NULL); }
+  case 33: /* elseif: TOKEN_ELSE_KEYWORD TOKEN_IF_KEYWORD TOKEN_LPAREN expr TOKEN_RPAREN TOKEN_LCURL lines TOKEN_RCURL else  */
+#line 102 "Parser.bison"
+                                                                                                               { yyval = createIfStatementNode(yyvsp[-5],yyvsp[-2],yyvsp[0],0); }
 #line 1428 "Parser.c"
     break;
 
-  case 39: /* expr: expr TOKEN_AND term  */
-#line 108 "Parser.bison"
-                           { yyval = createExpressionNode(EXPR_AND,yyvsp[-2],yyvsp[0]); }
+  case 34: /* else: TOKEN_ELSE_KEYWORD TOKEN_LCURL lines TOKEN_RCURL  */
+#line 105 "Parser.bison"
+                                                        { yyval = createIfStatementNode(NULL,yyvsp[-1],NULL,1); }
 #line 1434 "Parser.c"
     break;
 
-  case 40: /* expr: expr TOKEN_OR term  */
-#line 109 "Parser.bison"
-                          { yyval = createExpressionNode(EXPR_OR,yyvsp[-2],yyvsp[0]); }
+  case 35: /* function: TOKEN_FUNCTION_KEYWORD firstVariable TOKEN_LPAREN TOKEN_RPAREN TOKEN_LCURL lines TOKEN_RCURL  */
+#line 107 "Parser.bison"
+                                                                                                        { yyval = createFunctionNode(DECLARE_VOID,yyvsp[-5],yyvsp[-1],NULL); }
 #line 1440 "Parser.c"
     break;
 
-  case 41: /* expr: expr TOKEN_XOR term  */
-#line 110 "Parser.bison"
-                           { yyval = createExpressionNode(EXPR_XOR,yyvsp[-2],yyvsp[0]); }
+  case 36: /* function: TOKEN_FUNCTION_KEYWORD firstVariable TOKEN_LPAREN TOKEN_RPAREN TOKEN_IMPLIES TOKEN_INT_KEYWORD TOKEN_LCURL lines TOKEN_RETURN_KEYWORD expr TOKEN_SEMI TOKEN_RCURL  */
+#line 108 "Parser.bison"
+                                                                                                                                                                           { yyval = createFunctionNode(DECLARE_INT, yyvsp[-10], yyvsp[-4], yyvsp[-2]); }
 #line 1446 "Parser.c"
     break;
 
-  case 42: /* expr: term  */
-#line 111 "Parser.bison"
-            { yyval = yyvsp[0]; }
+  case 37: /* function: TOKEN_FUNCTION_KEYWORD firstVariable TOKEN_LPAREN TOKEN_RPAREN TOKEN_IMPLIES TOKEN_FLOAT_KEYWORD TOKEN_LCURL lines TOKEN_RETURN_KEYWORD expr TOKEN_SEMI TOKEN_RCURL  */
+#line 109 "Parser.bison"
+                                                                                                                                                                             { yyval = createFunctionNode(DECLARE_FLOAT, yyvsp[-10], yyvsp[-4], yyvsp[-2]); }
 #line 1452 "Parser.c"
     break;
 
-  case 43: /* term: term TOKEN_MUL factor  */
-#line 114 "Parser.bison"
-                             { yyval = createExpressionNode(EXPR_MUL,yyvsp[-2],yyvsp[0]); }
+  case 38: /* function: TOKEN_FUNCTION_KEYWORD firstVariable TOKEN_LPAREN TOKEN_RPAREN TOKEN_IMPLIES TOKEN_CHAR_KEYWORD TOKEN_LCURL lines TOKEN_RETURN_KEYWORD expr TOKEN_SEMI TOKEN_RCURL  */
+#line 110 "Parser.bison"
+                                                                                                                                                                            { yyval = createFunctionNode(DECLARE_CHAR, yyvsp[-10], yyvsp[-4], yyvsp[-2]); }
 #line 1458 "Parser.c"
     break;
 
-  case 44: /* term: term TOKEN_DIV factor  */
-#line 115 "Parser.bison"
-                             { yyval = createExpressionNode(EXPR_DIV,yyvsp[-2],yyvsp[0]); }
+  case 39: /* function: TOKEN_FUNCTION_KEYWORD firstVariable TOKEN_LPAREN TOKEN_RPAREN TOKEN_IMPLIES TOKEN_BOOL_KEYWORD TOKEN_LCURL lines TOKEN_RETURN_KEYWORD expr TOKEN_SEMI TOKEN_RCURL  */
+#line 111 "Parser.bison"
+                                                                                                                                                                            { yyval = createFunctionNode(DECLARE_BOOL, yyvsp[-10], yyvsp[-4], yyvsp[-2]); }
 #line 1464 "Parser.c"
     break;
 
-  case 45: /* term: term TOKEN_DOUBLE_EQUAL factor  */
-#line 116 "Parser.bison"
-                                      { yyval = createExpressionNode(EXPR_EQUAL,yyvsp[-2],yyvsp[0]); }
+  case 40: /* variable: TOKEN_IDENT  */
+#line 113 "Parser.bison"
+                       { yyval = createExpressionSymbolNode(yytext,0); }
 #line 1470 "Parser.c"
     break;
 
-  case 46: /* term: term TOKEN_LESS factor  */
-#line 117 "Parser.bison"
-                              { yyval = createExpressionNode(EXPR_LESS,yyvsp[-2],yyvsp[0]); }
+  case 41: /* firstVariable: TOKEN_IDENT  */
+#line 115 "Parser.bison"
+                           { yyval = createExpressionSymbolNode(yytext,1); }
 #line 1476 "Parser.c"
     break;
 
-  case 47: /* term: term TOKEN_GREATER factor  */
-#line 118 "Parser.bison"
-                                 { yyval = createExpressionNode(EXPR_GREATER,yyvsp[-2],yyvsp[0]); }
+  case 42: /* expr: expr TOKEN_ADD term  */
+#line 117 "Parser.bison"
+                           { yyval = createExpressionNode(EXPR_ADD,yyvsp[-2],yyvsp[0]); }
 #line 1482 "Parser.c"
     break;
 
-  case 48: /* term: term TOKEN_LESS_EQUAL factor  */
-#line 119 "Parser.bison"
-                                    { yyval = createExpressionNode(EXPR_LESS_EQUAL,yyvsp[-2],yyvsp[0]); }
+  case 43: /* expr: expr TOKEN_MINUS term  */
+#line 118 "Parser.bison"
+                             { yyval = createExpressionNode(EXPR_SUB,yyvsp[-2],yyvsp[0]); }
 #line 1488 "Parser.c"
     break;
 
-  case 49: /* term: term TOKEN_GREATER_EQUAL factor  */
-#line 120 "Parser.bison"
-                                       { yyval = createExpressionNode(EXPR_GREATER_EQUAL,yyvsp[-2],yyvsp[0]); }
+  case 44: /* expr: TOKEN_NOT expr  */
+#line 119 "Parser.bison"
+                      { yyval = createExpressionNode(EXPR_NOT,yyvsp[0],NULL); }
 #line 1494 "Parser.c"
     break;
 
-  case 50: /* term: factor  */
-#line 121 "Parser.bison"
-              { yyval = yyvsp[0]; }
+  case 45: /* expr: expr TOKEN_AND term  */
+#line 120 "Parser.bison"
+                           { yyval = createExpressionNode(EXPR_AND,yyvsp[-2],yyvsp[0]); }
 #line 1500 "Parser.c"
     break;
 
-  case 51: /* factor: TOKEN_MINUS factor  */
-#line 123 "Parser.bison"
-                            { yyval = createExpressionNode(EXPR_SUB,createExpressionIntNode(0),yyvsp[0]); }
+  case 46: /* expr: expr TOKEN_OR term  */
+#line 121 "Parser.bison"
+                          { yyval = createExpressionNode(EXPR_OR,yyvsp[-2],yyvsp[0]); }
 #line 1506 "Parser.c"
     break;
 
-  case 52: /* factor: TOKEN_LPAREN expr TOKEN_RPAREN  */
-#line 124 "Parser.bison"
-                                        { yyval = yyvsp[-1]; }
+  case 47: /* expr: expr TOKEN_XOR term  */
+#line 122 "Parser.bison"
+                           { yyval = createExpressionNode(EXPR_XOR,yyvsp[-2],yyvsp[0]); }
 #line 1512 "Parser.c"
     break;
 
-  case 53: /* factor: TOKEN_INT  */
-#line 125 "Parser.bison"
-                   { yyval = createExpressionIntNode(atoi(yytext)); }
+  case 48: /* expr: term  */
+#line 123 "Parser.bison"
+            { yyval = yyvsp[0]; }
 #line 1518 "Parser.c"
     break;
 
-  case 54: /* factor: TOKEN_FLOAT  */
+  case 49: /* term: term TOKEN_MUL factor  */
 #line 126 "Parser.bison"
-                     { yyval = createExpressionFloatNode(atof(yytext)); }
+                             { yyval = createExpressionNode(EXPR_MUL,yyvsp[-2],yyvsp[0]); }
 #line 1524 "Parser.c"
     break;
 
-  case 55: /* factor: TOKEN_CHAR  */
+  case 50: /* term: term TOKEN_DIV factor  */
 #line 127 "Parser.bison"
-                    { yyval = createExpressionCharNode(yytext[1]); }
+                             { yyval = createExpressionNode(EXPR_DIV,yyvsp[-2],yyvsp[0]); }
 #line 1530 "Parser.c"
     break;
 
-  case 56: /* factor: TOKEN_FALSE_KEYWORD  */
+  case 51: /* term: term TOKEN_DOUBLE_EQUAL factor  */
 #line 128 "Parser.bison"
-                             { yyval = createExpressionBoolNode(0); }
+                                      { yyval = createExpressionNode(EXPR_EQUAL,yyvsp[-2],yyvsp[0]); }
 #line 1536 "Parser.c"
     break;
 
-  case 57: /* factor: TOKEN_TRUE_KEYWORD  */
+  case 52: /* term: term TOKEN_LESS factor  */
 #line 129 "Parser.bison"
-                            { yyval = createExpressionBoolNode(1); }
+                              { yyval = createExpressionNode(EXPR_LESS,yyvsp[-2],yyvsp[0]); }
 #line 1542 "Parser.c"
     break;
 
-  case 58: /* factor: TOKEN_IDENT  */
+  case 53: /* term: term TOKEN_GREATER factor  */
 #line 130 "Parser.bison"
-                     { yyval = createExpressionSymbolNode(yytext,0); }
+                                 { yyval = createExpressionNode(EXPR_GREATER,yyvsp[-2],yyvsp[0]); }
 #line 1548 "Parser.c"
     break;
 
+  case 54: /* term: term TOKEN_LESS_EQUAL factor  */
+#line 131 "Parser.bison"
+                                    { yyval = createExpressionNode(EXPR_LESS_EQUAL,yyvsp[-2],yyvsp[0]); }
+#line 1554 "Parser.c"
+    break;
 
-#line 1552 "Parser.c"
+  case 55: /* term: term TOKEN_GREATER_EQUAL factor  */
+#line 132 "Parser.bison"
+                                       { yyval = createExpressionNode(EXPR_GREATER_EQUAL,yyvsp[-2],yyvsp[0]); }
+#line 1560 "Parser.c"
+    break;
+
+  case 56: /* term: factor  */
+#line 133 "Parser.bison"
+              { yyval = yyvsp[0]; }
+#line 1566 "Parser.c"
+    break;
+
+  case 57: /* factor: TOKEN_MINUS factor  */
+#line 135 "Parser.bison"
+                            { yyval = createExpressionNode(EXPR_SUB,createExpressionIntNode(0),yyvsp[0]); }
+#line 1572 "Parser.c"
+    break;
+
+  case 58: /* factor: TOKEN_LPAREN expr TOKEN_RPAREN  */
+#line 136 "Parser.bison"
+                                        { yyval = yyvsp[-1]; }
+#line 1578 "Parser.c"
+    break;
+
+  case 59: /* factor: TOKEN_INT  */
+#line 137 "Parser.bison"
+                   { yyval = createExpressionIntNode(atoi(yytext)); }
+#line 1584 "Parser.c"
+    break;
+
+  case 60: /* factor: TOKEN_FLOAT  */
+#line 138 "Parser.bison"
+                     { yyval = createExpressionFloatNode(atof(yytext)); }
+#line 1590 "Parser.c"
+    break;
+
+  case 61: /* factor: TOKEN_CHAR  */
+#line 139 "Parser.bison"
+                    { yyval = createExpressionCharNode(yytext[1]); }
+#line 1596 "Parser.c"
+    break;
+
+  case 62: /* factor: TOKEN_FALSE_KEYWORD  */
+#line 140 "Parser.bison"
+                             { yyval = createExpressionBoolNode(0); }
+#line 1602 "Parser.c"
+    break;
+
+  case 63: /* factor: TOKEN_TRUE_KEYWORD  */
+#line 141 "Parser.bison"
+                            { yyval = createExpressionBoolNode(1); }
+#line 1608 "Parser.c"
+    break;
+
+  case 64: /* factor: TOKEN_IDENT  */
+#line 142 "Parser.bison"
+                     { yyval = createExpressionSymbolNode(yytext,0); }
+#line 1614 "Parser.c"
+    break;
+
+
+#line 1618 "Parser.c"
 
       default: break;
     }
@@ -1741,7 +1807,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 132 "Parser.bison"
+#line 144 "Parser.bison"
 
 
 

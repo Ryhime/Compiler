@@ -127,7 +127,7 @@ Node* createDeclarationNode(DeclarationType type,Node* symbol,Node* expr){
     }
     // Add to Symbol Table
     else{
-        addSymbolToSymbolTable(currSymbolTable,symbol->expression->variable,type,0,0.0,'A',0);
+        addSymbolToSymbolTable(currSymbolTable,symbol->expression->variable,type,0,0.0,'A',0,0);
     }
     return node;
 }
@@ -169,6 +169,30 @@ Node* createIfStatementNode(Node* expr, Node* insideLines, Node* falseCondition,
     toReturnNode ->ifStatement = ifStatement;
     toReturnNode->type = NODE_IFSTATEMENT;
 
+    return toReturnNode;
+}
+
+Node* createFunctionNode(DeclarationType returnType, Node* fnSymbol, Node* insideLines, Node* returnExpression){
+    Function* func = calloc(sizeof(Function),1);
+    func->functionSymbol = fnSymbol;
+    func->returnType = returnType;
+    func->insideLines = insideLines;
+    func->returnExpression = returnExpression;
+    if (func->returnExpression==NULL) func->hasReturnExpression = 0;
+    else func->hasReturnExpression = 1;
+
+    Node* toReturnNode = calloc(sizeof(Node),1);
+    toReturnNode->function = func;
+    toReturnNode->type = NODE_FUNCTION;
+
+    // Make sure it is not already in symbol table
+    if (getSymbolFromTable(currSymbolTable,func->functionSymbol->expression->variable)!=NULL){
+        addErrorEntryToTable(errorTable,ERROR_VAR_ALREADY_EXISTS,func->functionSymbol->expression->variable->name);
+    }
+    // Add to Symbol Table
+    else{
+        addSymbolToSymbolTable(currSymbolTable,func->functionSymbol->expression->variable,returnType,0,0.0,'A',0,1);
+    }
     return toReturnNode;
 }
 

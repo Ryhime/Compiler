@@ -10,6 +10,7 @@ typedef struct symbolTableEntry{
     DeclarationType symbolType;
     union symbolValue* value;
     struct symbolTableEntry* next;
+    int isFunction;
 } SymbolTableEntry;
 
 
@@ -22,7 +23,7 @@ typedef union symbolValue{
 
 SymbolTable* createSymbolTable();
 void addSymbolToSymbolTable(SymbolTable* symbolTable, Symbol* symbol, DeclarationType type,
-    int integer, float floating, char character, int boolean);
+    int integer, float floating, char character, int boolean, int isFunction);
     
 SymbolTableEntry* getSymbolFromTable(SymbolTable* symbolTable, Symbol* symbol);
 

@@ -54,17 +54,22 @@
 %token TOKEN_BOOL_KEYWORD
 %token TOKEN_TRUE_KEYWORD
 %token TOKEN_FALSE_KEYWORD
+%token TOKEN_FUNCTION_KEYWORD
+%token TOKEN_RETURN_KEYWORD
+%token TOKEN_IMPLIES
+
 %token TOKEN_IDENT
 
 %%
 program : lines { parserResult = $1; }
 lines : line { $$ = $1; } | line lines { $$ = connectNodes($1,$2); };
 
-line : assignment TOKEN_SEMI { $$ = $1; } | 
+line : assignment TOKEN_SEMI { $$ = $1; } |
        declaration TOKEN_SEMI { $$ = $1; } |
        while { $$ = $1; } |
        for { $$ = $1; } |
-       if { $$ = $1; };
+       if { $$ = $1; } |
+       function { $$ = $1; };
 
 declaration : TOKEN_INT_KEYWORD firstVariable { $$ = createDeclarationNode(DECLARE_INT,$2,createExpressionIntNode(0)); } 
               | TOKEN_INT_KEYWORD firstVariable TOKEN_EQUAL expr { $$ = createDeclarationNode(DECLARE_INT,$2,$4);};
@@ -99,7 +104,14 @@ elseif : TOKEN_ELSE_KEYWORD TOKEN_IF_KEYWORD TOKEN_LPAREN expr TOKEN_RPAREN TOKE
 
 else : TOKEN_ELSE_KEYWORD TOKEN_LCURL lines TOKEN_RCURL { $$ = createIfStatementNode(NULL,$3,NULL,1); };
 
+function : TOKEN_FUNCTION_KEYWORD firstVariable TOKEN_LPAREN TOKEN_RPAREN TOKEN_LCURL lines TOKEN_RCURL { $$ = createFunctionNode(DECLARE_VOID,$2,$6,NULL); }
+       | TOKEN_FUNCTION_KEYWORD firstVariable TOKEN_LPAREN TOKEN_RPAREN TOKEN_IMPLIES TOKEN_INT_KEYWORD TOKEN_LCURL lines TOKEN_RETURN_KEYWORD expr TOKEN_SEMI TOKEN_RCURL { $$ = createFunctionNode(DECLARE_INT, $2, $8, $10); }
+       | TOKEN_FUNCTION_KEYWORD firstVariable TOKEN_LPAREN TOKEN_RPAREN TOKEN_IMPLIES TOKEN_FLOAT_KEYWORD TOKEN_LCURL lines TOKEN_RETURN_KEYWORD expr TOKEN_SEMI TOKEN_RCURL { $$ = createFunctionNode(DECLARE_FLOAT, $2, $8, $10); }
+       | TOKEN_FUNCTION_KEYWORD firstVariable TOKEN_LPAREN TOKEN_RPAREN TOKEN_IMPLIES TOKEN_CHAR_KEYWORD TOKEN_LCURL lines TOKEN_RETURN_KEYWORD expr TOKEN_SEMI TOKEN_RCURL { $$ = createFunctionNode(DECLARE_CHAR, $2, $8, $10); }
+       | TOKEN_FUNCTION_KEYWORD firstVariable TOKEN_LPAREN TOKEN_RPAREN TOKEN_IMPLIES TOKEN_BOOL_KEYWORD TOKEN_LCURL lines TOKEN_RETURN_KEYWORD expr TOKEN_SEMI TOKEN_RCURL { $$ = createFunctionNode(DECLARE_BOOL, $2, $8, $10); };
+
 variable : TOKEN_IDENT { $$ = createExpressionSymbolNode(yytext,0); }
+
 firstVariable: TOKEN_IDENT { $$ = createExpressionSymbolNode(yytext,1); }
 
 expr : expr TOKEN_ADD term { $$ = createExpressionNode(EXPR_ADD,$1,$3); }

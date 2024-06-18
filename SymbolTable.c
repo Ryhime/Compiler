@@ -8,12 +8,13 @@ SymbolTable* createSymbolTable(){
 }
 
 void addSymbolToSymbolTable(SymbolTable* symbolTable, Symbol* symbol, DeclarationType type,
-    int integer, float floating, char character, int boolean){
+    int integer, float floating, char character, int boolean, int isFunction){
     SymbolTableEntry* entry = calloc(sizeof(SymbolTableEntry),1);
     entry->symbol = symbol;
     entry->symbolType = type;
     entry->next = NULL;
     entry->value = calloc(sizeof(SymbolValue),1);
+    entry->isFunction = isFunction;
     switch (type){
         case DECLARE_INT:
             entry->value->integer = integer;
@@ -26,6 +27,8 @@ void addSymbolToSymbolTable(SymbolTable* symbolTable, Symbol* symbol, Declaratio
             break;
         case DECLARE_BOOL:
             entry->value->boolean = boolean;
+            break;
+        case DECLARE_VOID:
             break;
         default:
             printf("NOT IMPLEMENTED YET!\n");
@@ -103,27 +106,37 @@ void printSymbolTable(SymbolTable* symbolTable){
             case DECLARE_BOOL:
                 printf("bool ");
                 break;
+            case DECLARE_VOID:
+                printf("void ");
+                break;
             default:
                 printf("NOT IMPLEMENTED YET!\n");
         }
         printf("%s = ",entry->symbol->name);
-        switch (entry->symbolType){
-            case DECLARE_INT:
-                printf("%d",entry->value->integer);
-                break;
-            case DECLARE_FLOAT:
-                printf("float ");
-                break;
-            case DECLARE_CHAR:
-                printf("%c",entry->value->character);
-                break;
-            case DECLARE_BOOL:
-                if (entry->value->boolean) printf("true");
-                else printf("false");
-                break;
-            default:
-                printf("NOT IMPLEMENTED YET!\n");
+        if (entry->isFunction) printf("Function");
+        else{
+            switch (entry->symbolType){
+                case DECLARE_INT:
+                    printf("%d",entry->value->integer);
+                    break;
+                case DECLARE_FLOAT:
+                    printf("%.6f",entry->value->floating);
+                    break;
+                case DECLARE_CHAR:
+                    printf("%c",entry->value->character);
+                    break;
+                case DECLARE_BOOL:
+                    if (entry->value->boolean) printf("true");
+                    else printf("false");
+                    break;
+                case DECLARE_VOID:
+                    printf("void");
+                    break;
+                default:
+                    printf("NOT IMPLEMENTED YET!\n");
+            }
         }
+
         printf("\n");
         entry = entry->next;
     }
