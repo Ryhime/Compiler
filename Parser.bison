@@ -57,12 +57,12 @@
 %token TOKEN_IDENT
 
 %%
-program : lines { parserResult = $1 }
+program : lines { parserResult = $1; }
 lines : line { $$ = $1; } | line lines { $$ = connectNodes($1,$2); };
 
-line : assignment TOKEN_SEMI { $$ = $1 } | 
-       declaration TOKEN_SEMI { $$ = $1 } |
-       while { $$ = $1 } |
+line : assignment TOKEN_SEMI { $$ = $1; } | 
+       declaration TOKEN_SEMI { $$ = $1; } |
+       while { $$ = $1; } |
        for { $$ = $1; } |
        if { $$ = $1; };
 
