@@ -19,7 +19,5 @@ Strongly Typed Language
 Valid Types:
 Integer with Float
 
-
-TOOD:
-- Add function calling to expression
-    - NOTE: How to handle embedded function calls?
+TODO:
+    - User experience like command line flags and picking which file to compile
