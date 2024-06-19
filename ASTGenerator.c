@@ -16,8 +16,23 @@ SymbolTable* currSymbolTable;
 ErrorTable* errorTable;
 
 
-int main(){
-    yyin = fopen("program.c","r");
+int main(int argc, char* argv[]){
+    const char* optimizeFlag = "-O";
+
+    if (argc<=1){
+        printf("Must Provide Program to Compile\n");
+        return -1;
+    }
+    else if (argc>=3 && strcmp(optimizeFlag,argv[2])!=0){
+        printf("Optimization Flag %s Not Found\n",argv[2]);
+        return -1;
+    }
+
+    yyin = fopen(argv[1],"r");
+    if (yyin==NULL){
+        printf("File %s Not Found\n",argv[1]);
+        return -1;
+    }
     currSymbolTable = createSymbolTable();
     errorTable = createErrorTable();
 
@@ -29,8 +44,10 @@ int main(){
         return -1;
     }
 
-    // Optimize
-    constantFolding(parserResult);
+    if (argc>=3 && strcmp(optimizeFlag,argv[2])==0){
+        // Optimize
+        constantFolding(parserResult);
+    }
 
     if (errorTable->head!=NULL){
         printErrorTable(errorTable);
