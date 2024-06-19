@@ -1,9 +1,13 @@
-Not done yet...
+Compiler front end based off the book - Introduction to Compilers and Language Design: Second Edition
 
-Compiler based off the book - Introduction to Compilers and Language Design: Second Edition (Banger Alert).
+To Run:
+./Run <program name>
 
-To run: 
+To add optimizations set the flag <-O> after the program name
+
+If that does not work run:
 ./FullBuild
+To rebuild the entire project
 
 
 Type Checking
