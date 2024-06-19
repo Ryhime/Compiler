@@ -1,0 +1,3 @@
+1.) Create the Assembler for basic programs (Like no branches and such)
+2.) Function parameters
+3.) Better symbol table with functions
