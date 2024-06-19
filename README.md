@@ -3,7 +3,7 @@ Not done yet...
 Compiler based off the book - Introduction to Compilers and Language Design: Second Edition (Banger Alert).
 
 To run: 
-./FullBuild.sh
+./FullBuild
 
 
 Type Checking
@@ -19,7 +19,5 @@ Strongly Typed Language
 Valid Types:
 Integer with Float
 
-
-TOOD:
-- Add function calling to expression
-    - NOTE: How to handle embedded function calls?
+TODO:
+    - User experience like command line flags and picking which file to compile
